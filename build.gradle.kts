@@ -1,5 +1,7 @@
 plugins {
     java
+    checkstyle
+    pmd
     id("org.springframework.boot") version "3.5.16"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -36,4 +38,20 @@ dependencies {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion = "14.4.0"
+    configFile = file("config/checkstyle/checkstyle.xml")
+
+    isShowViolations = true
+    isIgnoreFailures = false
+}
+
+pmd {
+    toolVersion = "7.16.0"
+    ruleSets = listOf("category/java/errorprone.xml")
+
+    isConsoleOutput = true
+    isIgnoreFailures = false
 }
