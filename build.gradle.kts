@@ -2,6 +2,7 @@ plugins {
     java
     checkstyle
     pmd
+    jacoco
     id("org.springframework.boot") version "3.5.16"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -54,4 +55,26 @@ pmd {
 
     isConsoleOutput = true
     isIgnoreFailures = false
+}
+
+jacoco {
+    toolVersion = "0.8.16"
+}
+
+tasks.test {
+    finalizedBy(tasks.jacocoTestReport)
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+
+    reports {
+        html.required.set(true)
+        xml.required.set(true)
+        csv.required.set(false)
+
+        html.outputLocation.set(
+            layout.buildDirectory.dir("reports/jacoco/test/html")
+        )
+    }
 }
