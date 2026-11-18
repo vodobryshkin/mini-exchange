@@ -52,14 +52,14 @@ public class TradeController {
     @GetMapping
     public ResponseEntity<PageResponse<TradeResponse>> getTrades(
             @AuthenticationPrincipal ExchangeUserDetails user,
-            @RequestParam(value = "trading_account_id", required = false) Long tradingAccountId,
-            @RequestParam(value = "sec_code", required = false) String secCode,
-            @RequestParam(value = "from", required = false)
+            @RequestParam(required = false) Long tradingAccountId,
+            @RequestParam(required = false) String secCode,
+            @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime from,
-            @RequestParam(value = "to", required = false)
+            @RequestParam(required = false)
             @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) OffsetDateTime to,
-            @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "50") int size) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "50") int size) {
 
         RegistryRequest request = RegistryRequest.builder()
                 .tradingAccountId(tradingAccountId)
