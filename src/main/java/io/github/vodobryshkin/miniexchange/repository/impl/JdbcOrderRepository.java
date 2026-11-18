@@ -9,6 +9,11 @@ import io.github.vodobryshkin.miniexchange.domain.order.OrderStatus;
 import io.github.vodobryshkin.miniexchange.domain.order.OrderType;
 import io.github.vodobryshkin.miniexchange.domain.order.TimeInForce;
 import io.github.vodobryshkin.miniexchange.domain.tradinginstrument.SecCode;
+import io.github.vodobryshkin.miniexchange.dto.common.request.RegistryRequest;
+import io.github.vodobryshkin.miniexchange.dto.order.request.OrderRegistryRequest;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -139,5 +144,101 @@ public class JdbcOrderRepository implements IOrderRepository {
             """;
 
         return jdbcTemplate.query(sql, ORDER_ROW_MAPPER, id).stream().findFirst();
+    }
+
+    /**
+     * Метод для получения страницы заявок по доступным пользователю счетам.
+     *
+     * @param userId идентификатор пользователя.
+     * @param request параметры фильтрации и пагинации.
+     * @return заявки в порядке убывания времени создания и идентификатора.
+     */
+    @Override
+    public List<Order> findOrders(long userId, OrderRegistryRequest request) {
+        RegistryRequest registry = request.getRegistry();
+
+        List<Object> parameters = new ArrayList<>();
+        String whereClause = buildWhereClause(userId, request, parameters);
+
+        String selectSql = """
+            SELECT o.order_id, o.sec_code, o.trading_account_id, o.direction,
+                   o.type, o.tif, o.price, o.quantity, o.status, o.creation_time
+            """;
+
+        String paginationSql = """
+            ORDER BY o.creation_time DESC, o.order_id DESC
+            LIMIT ? OFFSET ?
+            """;
+
+        String sql = selectSql + whereClause + paginationSql;
+
+        parameters.add(registry.getSize());
+        parameters.add(registry.getOffset());
+
+        return jdbcTemplate.query(sql, ORDER_ROW_MAPPER, parameters.toArray());
+    }
+
+    /**
+     * Метод для подсчета заявок с учетом фильтров и прав доступа.
+     *
+     * @param userId идентификатор пользователя.
+     * @param request параметры фильтрации.
+     * @return общее количество подходящих заявок.
+     */
+    @Override
+    public long countOrders(long userId, OrderRegistryRequest request) {
+        List<Object> parameters = new ArrayList<>();
+        String sql = "SELECT COUNT(*) " + buildWhereClause(userId, request, parameters);
+
+        return jdbcTemplate.queryForObject(sql, Long.class, parameters.toArray());
+    }
+
+    private String buildWhereClause(
+            long userId,
+            OrderRegistryRequest request,
+            List<Object> parameters) {
+
+        RegistryRequest registry = request.getRegistry();
+
+        String baseSql = """
+            FROM orders o
+            JOIN trading_accounts a ON a.trading_account_id = o.trading_account_id
+            WHERE a.user_id = ?
+            """;
+
+        StringBuilder sql = new StringBuilder(baseSql);
+        parameters.add(userId);
+
+        if (registry.getTradingAccountId() != null) {
+            sql.append(" AND o.trading_account_id = ? ");
+            parameters.add(registry.getTradingAccountId());
+        }
+
+        if (registry.getSecCode() != null) {
+            sql.append(" AND o.sec_code = ?::SEC_CODE ");
+            parameters.add(registry.getSecCode());
+        }
+
+        if (request.getStatus() != null) {
+            sql.append(" AND o.status = ?::STATUS ");
+            parameters.add(request.getStatus().name());
+        }
+
+        if (request.getDirection() != null) {
+            sql.append(" AND o.direction = ?::ORDER_DIRECTION ");
+            parameters.add(request.getDirection().name());
+        }
+
+        if (registry.getFrom() != null) {
+            sql.append(" AND o.creation_time >= ? ");
+            parameters.add(Timestamp.from(registry.getFrom().toInstant()));
+        }
+
+        if (registry.getTo() != null) {
+            sql.append(" AND o.creation_time < ? ");
+            parameters.add(Timestamp.from(registry.getTo().toInstant()));
+        }
+
+        return sql.toString();
     }
 }

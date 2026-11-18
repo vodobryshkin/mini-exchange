@@ -1,8 +1,10 @@
 package io.github.vodobryshkin.miniexchange.repository.spec;
 
 import io.github.vodobryshkin.miniexchange.domain.order.Order;
+import io.github.vodobryshkin.miniexchange.dto.order.request.OrderRegistryRequest;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -35,4 +37,22 @@ public interface IOrderRepository {
      * @return заявку с указанным идентификатором.
      */
     Optional<Order> findOrderById(long id);
+
+    /**
+     * Метод для подсчета заявок с учетом фильтров и прав доступа.
+     *
+     * @param userId идентификатор пользователя.
+     * @param request параметры фильтрации.
+     * @return общее количество подходящих заявок.
+     */
+    long countOrders(long userId, OrderRegistryRequest request);
+
+    /**
+     * Метод для получения страницы заявок по доступным пользователю счетам.
+     *
+     * @param userId идентификатор пользователя.
+     * @param request параметры фильтрации и пагинации.
+     * @return заявки в порядке убывания времени создания и идентификатора.
+     */
+    List<Order> findOrders(long userId, OrderRegistryRequest request);
 }

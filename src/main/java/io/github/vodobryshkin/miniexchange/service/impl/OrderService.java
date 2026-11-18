@@ -15,8 +15,14 @@ import io.github.vodobryshkin.miniexchange.repository.spec.IOrderRepository;
 import io.github.vodobryshkin.miniexchange.repository.spec.ITradingInstrumentRepository;
 import io.github.vodobryshkin.miniexchange.repository.spec.IUserRepository;
 import io.github.vodobryshkin.miniexchange.service.spec.IOrderService;
+import io.github.vodobryshkin.miniexchange.dto.common.request.RegistryRequest;
+import io.github.vodobryshkin.miniexchange.dto.common.response.PageResponse;
+import io.github.vodobryshkin.miniexchange.dto.order.request.OrderRegistryRequest;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Сервис для обработки жизненного цикла заявок на бирже.
@@ -109,5 +115,35 @@ public class OrderService implements IOrderService {
                 .orElseThrow(() -> new OrderNotFoundException(String.valueOf(orderId)));
 
         return orderMapper.toOrderResponse(order);
+    }
+
+    /**
+     * Метод для получения реестра заявок пользователя.
+     *
+     * @param userId идентификатор пользователя.
+     * @param request параметры фильтрации и пагинации.
+     * @return страница реестра заявок.
+     */
+    @Override
+    @Transactional(readOnly = true, isolation = Isolation.REPEATABLE_READ)
+    public PageResponse<OrderResponse> getOrders(
+            long userId,
+            OrderRegistryRequest request) {
+
+        RegistryRequest registry = request.getRegistry();
+
+        List<OrderResponse> orders = orderRepository.findOrders(userId, request)
+                .stream()
+                .map(orderMapper::toOrderResponse)
+                .toList();
+
+        long totalElements = orderRepository.countOrders(userId, request);
+
+        return new PageResponse<>(
+                orders,
+                registry.getPage(),
+                registry.getSize(),
+                totalElements
+        );
     }
 }

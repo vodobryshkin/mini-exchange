@@ -1,6 +1,8 @@
 package io.github.vodobryshkin.miniexchange.service.spec;
 
+import io.github.vodobryshkin.miniexchange.dto.common.response.PageResponse;
 import io.github.vodobryshkin.miniexchange.dto.order.request.CreateOrderRequest;
+import io.github.vodobryshkin.miniexchange.dto.order.request.OrderRegistryRequest;
 import io.github.vodobryshkin.miniexchange.dto.order.request.UpdateOrderRequest;
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderOperationResponse;
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderResponse;
@@ -38,4 +40,13 @@ public interface IOrderService {
      * @return DTO c информацией об обновленной заявке.
      */
     OrderResponse updateOrder(long userId, long orderId, UpdateOrderRequest request);
+
+    /**
+     * Метод для получения реестра заявок пользователя.
+     *
+     * @param userId идентификатор пользователя.
+     * @param request параметры фильтрации и пагинации.
+     * @return страница реестра заявок.
+     */
+    PageResponse<OrderResponse> getOrders(long userId, OrderRegistryRequest request);
 }

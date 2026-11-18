@@ -6,6 +6,11 @@ import io.github.vodobryshkin.miniexchange.dto.order.response.OrderOperationResp
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderResponse;
 import io.github.vodobryshkin.miniexchange.security.ExchangeUserDetails;
 import io.github.vodobryshkin.miniexchange.service.spec.IOrderService;
+import io.github.vodobryshkin.miniexchange.domain.order.OrderDirection;
+import io.github.vodobryshkin.miniexchange.domain.order.OrderStatus;
+import io.github.vodobryshkin.miniexchange.dto.common.request.RegistryRequest;
+import io.github.vodobryshkin.miniexchange.dto.common.response.PageResponse;
+import io.github.vodobryshkin.miniexchange.dto.order.request.OrderRegistryRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 /**
  * Контроллер для обработки запросов, связанных с заявками на бирже.
@@ -67,5 +74,32 @@ public class OrderController {
                         orderId,
                         request
                 ));
+    }
+
+    /**
+     * Метод для получения реестра заявок по доступным пользователю счетам.
+     *
+     * @param user авторизованный пользователь.
+     * @param registry общие параметры фильтрации и пагинации.
+     * @param status статус заявки.
+     * @param direction направление заявки.
+     * @return HTTP-ответ со страницей реестра заявок.
+     */
+    @GetMapping
+    public ResponseEntity<PageResponse<OrderResponse>> getOrders(
+            @AuthenticationPrincipal ExchangeUserDetails user,
+            @ModelAttribute @Valid RegistryRequest registry,
+            @RequestParam(value = "status", required = false) OrderStatus status,
+            @RequestParam(value = "direction", required = false) OrderDirection direction) {
+
+        OrderRegistryRequest request = new OrderRegistryRequest(
+                registry,
+                status,
+                direction
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderService.getOrders(user.getId(), request));
     }
 }
