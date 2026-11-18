@@ -1,9 +1,15 @@
 package io.github.vodobryshkin.miniexchange.exception;
 
 import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -49,5 +55,22 @@ public class AppExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.UNAUTHORIZED)
                 .body(AuthResponse.INVALID_CREDENTIALS);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, Map<String, List<String>>>> handleValidationException(
+            MethodArgumentNotValidException ex) {
+        Map<String, List<String>> errors = ex.getBindingResult().getFieldErrors().stream()
+                .collect(Collectors.groupingBy(
+                        FieldError::getField,
+                        Collectors.mapping(FieldError::getDefaultMessage, Collectors.toList())
+                ));
+
+        Map<String, Map<String, List<String>>> mapOfErrors = new HashMap<>();
+        mapOfErrors.put("errors", errors);
+
+        return ResponseEntity
+                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(mapOfErrors);
     }
 }
