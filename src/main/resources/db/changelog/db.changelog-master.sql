@@ -153,3 +153,37 @@ CREATE TABLE spring_session_attributes (
 
 --rollback DROP TABLE spring_session_attributes;
 --rollback DROP TABLE spring_session;
+
+--changeset vodobryshkin:add-query-indexes dbms:postgresql
+
+CREATE INDEX idx_trading_accounts_user_id ON trading_accounts (user_id);
+
+CREATE INDEX idx_positions_sec_code ON positions (sec_code);
+
+CREATE INDEX idx_orders_account_history ON orders (trading_account_id, creation_time DESC, order_id DESC);
+
+CREATE INDEX idx_orders_active_buy ON orders (sec_code, price DESC, creation_time, order_id)
+    WHERE status = 'NEW' AND direction = 'BUY';
+
+CREATE INDEX idx_orders_active_sell ON orders (sec_code, price, creation_time, order_id)
+    WHERE status = 'NEW' AND direction = 'SELL';
+
+CREATE INDEX idx_orders_active_day_creation_time ON orders (creation_time)
+    WHERE status = 'NEW' AND tif = 'DAY';
+
+CREATE INDEX idx_executions_buy_order_id ON executions (buy_order_id);
+CREATE INDEX idx_executions_sell_order_id ON executions (sell_order_id);
+
+CREATE INDEX idx_spring_session_expiry_time ON spring_session (expiry_time);
+CREATE INDEX idx_spring_session_principal_name ON spring_session (principal_name);
+
+--rollback DROP INDEX idx_spring_session_principal_name;
+--rollback DROP INDEX idx_spring_session_expiry_time;
+--rollback DROP INDEX idx_executions_sell_order_id;
+--rollback DROP INDEX idx_executions_buy_order_id;
+--rollback DROP INDEX idx_orders_active_day_creation_time;
+--rollback DROP INDEX idx_orders_active_sell;
+--rollback DROP INDEX idx_orders_active_buy;
+--rollback DROP INDEX idx_orders_account_history;
+--rollback DROP INDEX idx_positions_sec_code;
+--rollback DROP INDEX idx_trading_accounts_user_id;
