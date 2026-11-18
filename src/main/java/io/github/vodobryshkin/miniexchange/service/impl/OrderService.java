@@ -13,7 +13,6 @@ import io.github.vodobryshkin.miniexchange.repository.spec.IUserRepository;
 import io.github.vodobryshkin.miniexchange.service.spec.IOrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Сервис для обработки жизненного цикла заявок на бирже.
@@ -38,7 +37,6 @@ public class OrderService implements IOrderService {
      * @return DTO с информацией о созданной заявке.
      */
     @Override
-    @Transactional
     public OrderOperationResponse createOrder(long userId, CreateOrderRequest request) {
         long tradingAccountId = request.getTradingAccountId();
         SecCode secCode = request.getSecCode();
@@ -48,7 +46,7 @@ public class OrderService implements IOrderService {
         }
 
         if (!tradingInstrumentRepository.existsTradingInstrumentBySecCode(secCode)) {
-            throw new TradingInstrumentNotFoundException(String.valueOf(tradingAccountId));
+            throw new TradingInstrumentNotFoundException(String.valueOf(secCode.getValue()));
         }
 
         Order order = orderMapper.toOrder(request);
