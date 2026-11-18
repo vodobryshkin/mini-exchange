@@ -5,6 +5,9 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -13,7 +16,10 @@ import lombok.RequiredArgsConstructor;
  * @author vodobryshkin
  * @since 18.11.2026 13:46
  */
+@Builder
 @RequiredArgsConstructor
+@AllArgsConstructor
+@Getter
 public class Order {
     @Positive(message = "ID_MUST_BE_POSITIVE")
     private Long id;

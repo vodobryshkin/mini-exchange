@@ -1,4 +1,4 @@
-package io.github.vodobryshkin.miniexchange.exception;
+package io.github.vodobryshkin.miniexchange.exception.user;
 
 /**
  * Исключение, которое выбрасывается, когда не удалось найти пользователя с указанным идентификатором.

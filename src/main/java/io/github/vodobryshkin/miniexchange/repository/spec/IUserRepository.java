@@ -26,4 +26,13 @@ public interface IUserRepository {
      * @return Optional, содержащий найденного пользователя, или пустой Optional.
      */
     Optional<User> findUserByUsername(String username);
+
+    /**
+     * Метод для проверки, связан ли пользователь с указанным торговым счетом.
+     *
+     * @param id id пользователя.
+     * @param tradingAccountId id торгового счета.
+     * @return true, если пользователь связан с указанным торговым счетом, false в противном случае.
+     */
+    boolean linkedToThisTradingAccount(long id, long tradingAccountId);
 }

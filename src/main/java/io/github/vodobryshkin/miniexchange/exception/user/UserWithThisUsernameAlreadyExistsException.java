@@ -1,4 +1,4 @@
-package io.github.vodobryshkin.miniexchange.exception;
+package io.github.vodobryshkin.miniexchange.exception.user;
 
 /**
  * Исключение, выбрасываемое при попытке создать пользователя с уже существующим именем пользователя.

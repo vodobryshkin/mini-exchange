@@ -1,8 +1,8 @@
 package io.github.vodobryshkin.miniexchange.repository.impl;
 
 import io.github.vodobryshkin.miniexchange.domain.User;
-import io.github.vodobryshkin.miniexchange.exception.UserNotFoundException;
-import io.github.vodobryshkin.miniexchange.exception.UserWithThisUsernameAlreadyExistsException;
+import io.github.vodobryshkin.miniexchange.exception.user.UserNotFoundException;
+import io.github.vodobryshkin.miniexchange.exception.user.UserWithThisUsernameAlreadyExistsException;
 import io.github.vodobryshkin.miniexchange.repository.spec.IUserRepository;
 import java.util.List;
 import java.util.Optional;
@@ -99,5 +99,24 @@ public class JdbcUserRepository implements IUserRepository {
         List<User> users = jdbcTemplate.query(sql, USER_ROW_MAPPER, username);
 
         return users.stream().findFirst();
+    }
+
+    /**
+     * Метод для проверки, связан ли пользователь с указанным торговым счетом.
+     *
+     * @param id               id пользователя.
+     * @param tradingAccountId id торгового счета.
+     * @return true, если пользователь связан с указанным торговым счетом, false в противном случае.
+     */
+    @Override
+    public boolean linkedToThisTradingAccount(long id, long tradingAccountId) {
+        String sql = """
+            SELECT EXISTS (
+                SELECT 1 FROM trading_accounts
+                WHERE user_id = ? AND trading_account_id = ?
+            )
+            """;
+
+        return Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, Boolean.class, id, tradingAccountId));
     }
 }

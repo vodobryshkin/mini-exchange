@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 /**
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
  * @since 18.11.2026 14:07
  */
 @RequiredArgsConstructor
+@AllArgsConstructor
 public class TradingInstrument {
     @Valid
     @NotNull(message = "SEC_CODE_CANNOT_BE_NULL")

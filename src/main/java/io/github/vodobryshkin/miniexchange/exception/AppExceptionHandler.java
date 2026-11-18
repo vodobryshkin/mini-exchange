@@ -1,6 +1,10 @@
 package io.github.vodobryshkin.miniexchange.exception;
 
 import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthResponse;
+import io.github.vodobryshkin.miniexchange.exception.tradingaccount.TradingAccountNotFoundException;
+import io.github.vodobryshkin.miniexchange.exception.tradinginstrument.TradingInstrumentNotFoundException;
+import io.github.vodobryshkin.miniexchange.exception.user.UserNotFoundException;
+import io.github.vodobryshkin.miniexchange.exception.user.UserWithThisUsernameAlreadyExistsException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +47,30 @@ public class AppExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new AuthResponse(e.getMessage()));
+    }
+
+    /**
+     * Метод для обработки исключения TradingAccountNotFoundException.
+     *
+     * @return HTTP-ответ с описанием ошибки и статусом NOT FOUND.
+     */
+    @ExceptionHandler(TradingAccountNotFoundException.class)
+    public ResponseEntity<TradingAccountNotFoundException> handleTradingAccountNotFoundException(TradingAccountNotFoundException e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new TradingAccountNotFoundException(e.getMessage()));
+    }
+
+    /**
+     * Метод для обработки исключения TradingInstrumentNotFoundException.
+     *
+     * @return HTTP-ответ с описанием ошибки и статусом NOT FOUND.
+     */
+    @ExceptionHandler(TradingInstrumentNotFoundException.class)
+    public ResponseEntity<TradingInstrumentNotFoundException> handleTradingInstrumentNotFoundException(TradingInstrumentNotFoundException e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new TradingInstrumentNotFoundException(e.getMessage()));
     }
 
     /**
