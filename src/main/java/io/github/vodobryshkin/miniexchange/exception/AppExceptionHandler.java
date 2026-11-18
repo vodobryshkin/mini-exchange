@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 public class AppExceptionHandler {
     /**
-     * Метод для обработки исключения UserException.
+     * Метод для обработки исключения UserWithThisUsernameAlreadyExistsException.
      *
      * @return HTTP-ответ с сообщением в зависимости от типа исключения.
      */
@@ -24,5 +24,17 @@ public class AppExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)
                 .body(AuthResponse.USER_ALREADY_EXISTS);
+    }
+
+    /**
+     * Метод для обработки исключения UserNotFoundException.
+     *
+     * @return HTTP-ответ с сообщением в зависимости от типа исключения.
+     */
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<AuthResponse> handleUserNotFoundException(UserNotFoundException e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new AuthResponse(e.getMessage()));
     }
 }
