@@ -1,7 +1,7 @@
 package io.github.vodobryshkin.miniexchange.service.spec;
 
 import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthResponse;
-import io.github.vodobryshkin.miniexchange.dto.auth.request.CreateUserRequest;
+import io.github.vodobryshkin.miniexchange.dto.user.request.CreateUserRequest;
 
 /**
  * Интерфейс сервиса для выполнения операций, связанных с аутентификацией и авторизацией пользователей.

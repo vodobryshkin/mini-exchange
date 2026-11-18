@@ -1,4 +1,4 @@
-package io.github.vodobryshkin.miniexchange.dto.auth.request;
+package io.github.vodobryshkin.miniexchange.dto.user.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

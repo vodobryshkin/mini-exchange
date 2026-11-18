@@ -3,7 +3,7 @@ package io.github.vodobryshkin.miniexchange.controller;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.vodobryshkin.miniexchange.config.SecurityConfig;
-import io.github.vodobryshkin.miniexchange.dto.auth.request.CreateUserRequest;
+import io.github.vodobryshkin.miniexchange.dto.user.request.CreateUserRequest;
 import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthResponse;
 import io.github.vodobryshkin.miniexchange.security.ExchangeUserDetails;
 import io.github.vodobryshkin.miniexchange.service.spec.IUserService;

@@ -2,7 +2,7 @@ package io.github.vodobryshkin.miniexchange.service.impl;
 
 import io.github.vodobryshkin.miniexchange.domain.User;
 import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthResponse;
-import io.github.vodobryshkin.miniexchange.dto.auth.request.CreateUserRequest;
+import io.github.vodobryshkin.miniexchange.dto.user.request.CreateUserRequest;
 import io.github.vodobryshkin.miniexchange.repository.spec.IUserRepository;
 import io.github.vodobryshkin.miniexchange.service.spec.IUserService;
 import lombok.RequiredArgsConstructor;

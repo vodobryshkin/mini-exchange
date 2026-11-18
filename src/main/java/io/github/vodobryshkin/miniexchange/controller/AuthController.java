@@ -1,9 +1,9 @@
 package io.github.vodobryshkin.miniexchange.controller;
 
-import io.github.vodobryshkin.miniexchange.dto.auth.request.CreateUserRequest;
+import io.github.vodobryshkin.miniexchange.dto.user.request.CreateUserRequest;
 import io.github.vodobryshkin.miniexchange.dto.auth.request.LoginRequest;
 import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthResponse;
-import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthenticatedUserResponse;
+import io.github.vodobryshkin.miniexchange.dto.user.response.AuthenticatedUserResponse;
 import io.github.vodobryshkin.miniexchange.dto.auth.response.CsrfResponse;
 import io.github.vodobryshkin.miniexchange.security.ExchangeUserDetails;
 import io.github.vodobryshkin.miniexchange.service.spec.IUserService;

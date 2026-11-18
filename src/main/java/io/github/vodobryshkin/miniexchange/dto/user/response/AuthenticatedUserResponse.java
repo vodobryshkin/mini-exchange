@@ -1,4 +1,4 @@
-package io.github.vodobryshkin.miniexchange.dto.auth.response;
+package io.github.vodobryshkin.miniexchange.dto.user.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
