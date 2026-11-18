@@ -3,7 +3,9 @@ package io.github.vodobryshkin.miniexchange.service.impl;
 import io.github.vodobryshkin.miniexchange.domain.order.Order;
 import io.github.vodobryshkin.miniexchange.domain.tradinginstrument.SecCode;
 import io.github.vodobryshkin.miniexchange.dto.order.request.CreateOrderRequest;
+import io.github.vodobryshkin.miniexchange.dto.order.request.UpdateOrderRequest;
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderOperationResponse;
+import io.github.vodobryshkin.miniexchange.dto.order.response.OrderResponse;
 import io.github.vodobryshkin.miniexchange.exception.order.OrderNotCancelledException;
 import io.github.vodobryshkin.miniexchange.exception.order.OrderNotFoundException;
 import io.github.vodobryshkin.miniexchange.exception.tradingaccount.TradingAccountNotFoundException;
@@ -78,5 +80,34 @@ public class OrderService implements IOrderService {
         if (!cancelled) {
             throw new OrderNotCancelledException("Failed to cancel order with ID: " + orderId);
         }
+    }
+
+    /**
+     * Метод для обновления неисполненной заявки.
+     *
+     * @param userId  идентификатор пользователя, который хочет обновить заявку.
+     * @param request тело запроса на обновление заявки.
+     * @return DTO c информацией об обновленной заявке.
+     */
+    @Override
+    public OrderResponse updateOrder(long userId, long orderId, UpdateOrderRequest request) {
+
+        Order order = orderRepository.findOrderById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(String.valueOf(orderId)));
+
+        if (!userRepository.linkedToThisTradingAccount(userId, order.getTradingAccountId())) {
+            throw new TradingAccountNotFoundException(String.valueOf(order.getTradingAccountId()));
+        }
+
+        order.setTimeInForce(request.getTimeInForce());
+        order.setPrice(request.getPrice());
+        order.setQuantity(request.getQuantity());
+
+        orderRepository.save(order);
+
+        order = orderRepository.findOrderById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(String.valueOf(orderId)));
+
+        return orderMapper.toOrderResponse(order);
     }
 }

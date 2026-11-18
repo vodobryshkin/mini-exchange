@@ -8,6 +8,6 @@ package io.github.vodobryshkin.miniexchange.exception.order;
  */
 public class OrderNotFoundException extends RuntimeException {
     public OrderNotFoundException(String message) {
-        super(message);
+        super("ORDER_NOT_FOUND: " + message);
     }
 }

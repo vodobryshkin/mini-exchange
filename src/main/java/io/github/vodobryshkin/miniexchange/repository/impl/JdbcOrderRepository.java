@@ -1,6 +1,8 @@
 package io.github.vodobryshkin.miniexchange.repository.impl;
 
 import io.github.vodobryshkin.miniexchange.domain.order.Order;
+import io.github.vodobryshkin.miniexchange.exception.order.OrderNotActiveException;
+import io.github.vodobryshkin.miniexchange.exception.order.OrderNotFoundException;
 import io.github.vodobryshkin.miniexchange.repository.spec.IOrderRepository;
 import io.github.vodobryshkin.miniexchange.domain.order.OrderDirection;
 import io.github.vodobryshkin.miniexchange.domain.order.OrderStatus;
@@ -40,13 +42,48 @@ public class JdbcOrderRepository implements IOrderRepository {
 
     private final JdbcTemplate jdbcTemplate;
 
-    /**
-     * Метод для сохранения заявки в репозитории.
-     *
-     * @param order заявку, которую необходимо сохранить.
-     */
     @Override
     public void save(Order order) {
+        if (order.getId() != null) {
+            String selectSql = """
+                SELECT status
+                FROM orders
+                WHERE order_id = ?
+                FOR UPDATE
+            """;
+
+            OrderStatus currentStatus = jdbcTemplate.query(
+                    selectSql,
+                    (rs, rowNum) -> OrderStatus.valueOf(rs.getString("status")),
+                    order.getId()
+            ).stream().findFirst().orElseThrow(() -> new OrderNotFoundException(String.valueOf(order.getId())));
+
+            if (currentStatus != OrderStatus.NEW) {
+                throw new OrderNotActiveException(String.valueOf(order.getId()));
+            }
+
+            String updateSql = """
+            UPDATE orders
+            SET tif = ?::ORDER_TIF,
+                price = ?,
+                quantity = ?,
+                status = ?::STATUS,
+                update_time = now()
+            WHERE order_id = ?
+            """;
+
+            jdbcTemplate.update(
+                    updateSql,
+                    order.getTimeInForce().name(),
+                    order.getPrice(),
+                    order.getQuantity(),
+                    order.getStatus().name(),
+                    order.getId()
+            );
+
+            return;
+        }
+
         String sql = """
             INSERT INTO orders (
                 sec_code, trading_account_id, direction, type,

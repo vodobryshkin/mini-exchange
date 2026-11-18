@@ -1,7 +1,9 @@
 package io.github.vodobryshkin.miniexchange.controller;
 
 import io.github.vodobryshkin.miniexchange.dto.order.request.CreateOrderRequest;
+import io.github.vodobryshkin.miniexchange.dto.order.request.UpdateOrderRequest;
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderOperationResponse;
+import io.github.vodobryshkin.miniexchange.dto.order.response.OrderResponse;
 import io.github.vodobryshkin.miniexchange.security.ExchangeUserDetails;
 import io.github.vodobryshkin.miniexchange.service.spec.IOrderService;
 import jakarta.validation.Valid;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +45,7 @@ public class OrderController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<OrderOperationResponse> cancelOrder(
+    public ResponseEntity<?> cancelOrder(
             @AuthenticationPrincipal ExchangeUserDetails user,
             @RequestParam long orderId) {
         orderService.cancelOrder(user.getId(), orderId);
@@ -50,5 +53,19 @@ public class OrderController {
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<OrderResponse> updateOrder(
+            @AuthenticationPrincipal ExchangeUserDetails user,
+            @RequestParam long orderId,
+            @RequestBody @Valid UpdateOrderRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(orderService.updateOrder(
+                        user.getId(),
+                        orderId,
+                        request
+                ));
     }
 }

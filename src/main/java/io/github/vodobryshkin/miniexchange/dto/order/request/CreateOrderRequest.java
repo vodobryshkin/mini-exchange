@@ -32,6 +32,7 @@ public class CreateOrderRequest {
     @NotNull(message = "DIRECTION_CANNOT_BE_NULL")
     private OrderDirection direction;
 
+    //TODO убрать тип заявки из ДТО на создание заявки
     @NotNull(message = "ORDER_TYPE_CANNOT_BE_NULL")
     private OrderType type;
 

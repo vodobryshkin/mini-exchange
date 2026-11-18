@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 /**
  * Класс, представляющий заявку на покупку или продажу торговых инструментов на бирже.
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 public class Order {
     @Positive(message = "ID_MUST_BE_POSITIVE")
     private Long id;
