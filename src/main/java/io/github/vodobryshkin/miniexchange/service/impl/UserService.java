@@ -6,6 +6,7 @@ import io.github.vodobryshkin.miniexchange.dto.auth.request.CreateUserRequest;
 import io.github.vodobryshkin.miniexchange.repository.spec.IUserRepository;
 import io.github.vodobryshkin.miniexchange.service.spec.IUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserService implements IUserService {
     private final IUserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     /**
      * Метод для регистрации нового пользователя.
@@ -28,11 +30,10 @@ public class UserService implements IUserService {
     @Override
     public AuthResponse createUser(CreateUserRequest createUserRequest) {
         String username = createUserRequest.getUsername();
-        String passwordHash = createUserRequest.getPasswordHash();
+        String passwordHash = passwordEncoder.encode(createUserRequest.getPassword());
 
-        //TODO вместе с SecurityConfig нужно будет добавить шифрование пароля
         userRepository.save(new User(username, passwordHash));
-        
+
         return AuthResponse.OK;
     }
 }

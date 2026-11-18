@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * DTO для запроса на регистрацию пользователя.
@@ -16,13 +17,13 @@ import lombok.Data;
 public class CreateUserRequest {
     @NotNull(message = "USERNAME_CANNOT_BE_NULL")
     @Size(min = 6, max = 32, message = "USERNAME_MUST_BE_BETWEEN_6_AND_32_CHARACTERS")
-    @Pattern(
-            regexp = "[A-Za-z0-9_]+",
-            message = "USERNAME_CAN_ONLY_CONTAIN_LATIN_LETTERS_DIGITS_AND_UNDERSCORE"
-    )
+    @Pattern(regexp = "[A-Za-z0-9_]+",
+            message = "USERNAME_CAN_ONLY_CONTAIN_LATIN_LETTERS_DIGITS_AND_UNDERSCORE")
     private String username;
 
-    @NotBlank(message = "PASSWORD_HASH_CANNOT_BE_BLANK")
-    @Size(max = 255, message = "PASSWORD_HASH_MUST_NOT_EXCEED_255_CHARACTERS")
-    private String passwordHash;
+    @NotBlank(message = "PASSWORD_CANNOT_BE_BLANK")
+    @Size(min = 15, max = 128,
+            message = "PASSWORD_MUST_BE_BETWEEN_15_AND_128_CHARACTERS")
+    @ToString.Exclude
+    private String password;
 }

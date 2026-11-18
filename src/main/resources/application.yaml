@@ -10,3 +10,12 @@ spring:
 
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.sql
+
+  session:
+    timeout: 30m
+    jdbc:
+      initialize-schema: never
+
+app:
+  security:
+    secure-cookie: ${SESSION_COOKIE_SECURE:false}
