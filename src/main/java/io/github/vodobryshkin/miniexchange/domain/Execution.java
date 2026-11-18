@@ -25,5 +25,5 @@ public class Execution {
     private final BigDecimal price;
 
     @Positive(message = "QUANTITY_MUST_BE_POSITIVE")
-    private final int quantity;
+    private final long quantity;
 }

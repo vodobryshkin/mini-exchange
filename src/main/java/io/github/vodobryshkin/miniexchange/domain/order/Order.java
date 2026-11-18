@@ -37,7 +37,7 @@ public class Order {
     private BigDecimal price;
 
     @Positive(message = "QUANTITY_MUST_BE_POSITIVE")
-    private int quantity;
+    private long quantity;
 
     @NotNull(message = "STATUS_CANNOT_BE_NULL")
     private OrderStatus status;

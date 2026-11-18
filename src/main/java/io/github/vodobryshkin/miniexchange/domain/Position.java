@@ -2,6 +2,7 @@ package io.github.vodobryshkin.miniexchange.domain;
 
 import io.github.vodobryshkin.miniexchange.domain.tradinginstrument.SecCode;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +23,6 @@ public class Position {
     @Valid
     private final SecCode secCode;
 
-    @Positive(message = "QUANTITY_MUST_BE_POSITIVE")
-    private int quantity;
+    @Min(value = 0, message = "QUANTITY_MUST_BE_POSITIVE")
+    private long quantity;
 }
