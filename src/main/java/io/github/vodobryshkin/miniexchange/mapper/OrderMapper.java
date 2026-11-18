@@ -15,8 +15,8 @@ import org.mapstruct.ReportingPolicy;
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface OrderMapper {
-
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "status", constant = "NEW")
     Order toOrder(CreateOrderRequest request);
 
     @Mapping(target = "secCode", source = "secCode.value")

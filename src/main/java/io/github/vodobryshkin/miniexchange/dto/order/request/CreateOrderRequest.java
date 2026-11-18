@@ -2,7 +2,6 @@ package io.github.vodobryshkin.miniexchange.dto.order.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.vodobryshkin.miniexchange.domain.order.OrderDirection;
-import io.github.vodobryshkin.miniexchange.domain.order.OrderStatus;
 import io.github.vodobryshkin.miniexchange.domain.order.OrderType;
 import io.github.vodobryshkin.miniexchange.domain.order.TimeInForce;
 import io.github.vodobryshkin.miniexchange.domain.tradinginstrument.SecCode;
@@ -32,7 +31,6 @@ public class CreateOrderRequest {
     @NotNull(message = "DIRECTION_CANNOT_BE_NULL")
     private OrderDirection direction;
 
-    //TODO убрать тип заявки из ДТО на создание заявки
     @NotNull(message = "ORDER_TYPE_CANNOT_BE_NULL")
     private OrderType type;
 
@@ -46,7 +44,4 @@ public class CreateOrderRequest {
 
     @Positive(message = "QUANTITY_MUST_BE_POSITIVE")
     private long quantity;
-
-    @NotNull(message = "STATUS_CANNOT_BE_NULL")
-    private OrderStatus status;
 }
