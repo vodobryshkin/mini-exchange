@@ -9,5 +9,6 @@ package io.github.vodobryshkin.miniexchange.domain.order;
 public enum OrderStatus {
     NEW,
     FILLED,
-    CANCELED
+    CANCELED,
+    EXPIRED
 }
