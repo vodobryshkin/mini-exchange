@@ -3,7 +3,6 @@ package io.github.vodobryshkin.miniexchange.service.impl;
 import io.github.vodobryshkin.miniexchange.domain.order.Order;
 import io.github.vodobryshkin.miniexchange.domain.tradinginstrument.SecCode;
 import io.github.vodobryshkin.miniexchange.dto.order.request.CreateOrderRequest;
-import io.github.vodobryshkin.miniexchange.dto.order.request.CancelOrderRequest;
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderOperationResponse;
 import io.github.vodobryshkin.miniexchange.exception.order.OrderNotCancelledException;
 import io.github.vodobryshkin.miniexchange.exception.order.OrderNotFoundException;
@@ -63,12 +62,10 @@ public class OrderService implements IOrderService {
      * Метод для отмены неисполненной заявки.
      *
      * @param userId идентификатор пользователя, который хочет отменить заявку.
-     * @param request запрос на отмену заявки.
+     * @param orderId id запроса на отмену заявки.
      */
     @Override
-    public void cancelOrder(long userId, CancelOrderRequest request) {
-        long orderId = request.getOrderId();
-
+    public void cancelOrder(long userId, long orderId) {
         Order order = orderRepository.findOrderById(orderId)
                 .orElseThrow(() -> new OrderNotFoundException(String.valueOf(orderId)));
 

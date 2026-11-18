@@ -1,7 +1,6 @@
 package io.github.vodobryshkin.miniexchange.controller;
 
 import io.github.vodobryshkin.miniexchange.dto.order.request.CreateOrderRequest;
-import io.github.vodobryshkin.miniexchange.dto.order.request.CancelOrderRequest;
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderOperationResponse;
 import io.github.vodobryshkin.miniexchange.security.ExchangeUserDetails;
 import io.github.vodobryshkin.miniexchange.service.spec.IOrderService;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -41,11 +41,11 @@ public class OrderController {
                 .body(orderService.createOrder(user.getId(), request));
     }
 
-    @PatchMapping
+    @PatchMapping("/{id}")
     public ResponseEntity<OrderOperationResponse> cancelOrder(
             @AuthenticationPrincipal ExchangeUserDetails user,
-            @RequestBody @Valid CancelOrderRequest request) {
-        orderService.cancelOrder(user.getId(), request);
+            @RequestParam long orderId) {
+        orderService.cancelOrder(user.getId(), orderId);
 
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
