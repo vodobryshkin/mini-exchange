@@ -5,6 +5,7 @@ import io.github.vodobryshkin.miniexchange.repository.spec.ITradingInstrumentRep
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.validation.annotation.Validated;
 
 /**
  * Реализация репозитория торговых инструментов с использованием JDBC.
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @RequiredArgsConstructor
+@Validated
 public class JdbcTradingInstrumentRepository implements ITradingInstrumentRepository {
     private final JdbcTemplate jdbcTemplate;
 

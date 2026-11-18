@@ -3,6 +3,7 @@ package io.github.vodobryshkin.miniexchange.repository.spec;
 import io.github.vodobryshkin.miniexchange.domain.order.Order;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.util.Optional;
 
 /**
  * Интерфейс репозитория заявок, определяющий методы для работы с данными заявок на бирже.
@@ -17,4 +18,21 @@ public interface IOrderRepository {
      * @param order заявку, которую необходимо сохранить.
      */
     void save(@NotNull @Valid Order order);
+
+    /**
+     * Метод для того, чтобы пометить заявку в репозитории как отмененную.
+     *
+     * @param orderId id заявки, которую необходимо отменить.
+     * @param userId id пользователя, который хочет отменить заявку.
+     * @return true, если заявка была успешно отменена, false в противном случае.
+     */
+     boolean cancel(long orderId, long userId);
+
+    /**
+     * Метод для получения заявки по её идентификатору.
+     *
+     * @param id идентификатор заявки.
+     * @return заявку с указанным идентификатором.
+     */
+    Optional<Order> findOrderById(long id);
 }

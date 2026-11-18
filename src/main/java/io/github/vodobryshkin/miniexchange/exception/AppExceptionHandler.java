@@ -1,6 +1,8 @@
 package io.github.vodobryshkin.miniexchange.exception;
 
 import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthResponse;
+import io.github.vodobryshkin.miniexchange.exception.order.OrderNotCancelledException;
+import io.github.vodobryshkin.miniexchange.exception.order.OrderNotFoundException;
 import io.github.vodobryshkin.miniexchange.exception.tradingaccount.TradingAccountNotFoundException;
 import io.github.vodobryshkin.miniexchange.exception.tradinginstrument.TradingInstrumentNotFoundException;
 import io.github.vodobryshkin.miniexchange.exception.user.UserNotFoundException;
@@ -71,6 +73,30 @@ public class AppExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(new TradingInstrumentNotFoundException(e.getMessage()));
+    }
+
+    /**
+     * Метод для обработки исключения OrderNotFoundException.
+     *
+     * @return HTTP-ответ с описанием ошибки и статусом NOT FOUND.
+     */
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<OrderNotFoundException> handleOrderNotFoundException(OrderNotFoundException e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(new OrderNotFoundException(e.getMessage()));
+    }
+
+    /**
+     * Метод для обработки исключения OrderNotCancelledException.
+     *
+     * @return HTTP-ответ с описанием ошибки и статусом CONFLICT.
+     */
+    @ExceptionHandler(OrderNotCancelledException.class)
+    public ResponseEntity<OrderNotCancelledException> handleOrderNotCancelledException(OrderNotCancelledException e) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new OrderNotCancelledException(e.getMessage()));
     }
 
     /**

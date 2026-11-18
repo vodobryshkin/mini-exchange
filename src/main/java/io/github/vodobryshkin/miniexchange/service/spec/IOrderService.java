@@ -1,6 +1,7 @@
 package io.github.vodobryshkin.miniexchange.service.spec;
 
 import io.github.vodobryshkin.miniexchange.dto.order.request.CreateOrderRequest;
+import io.github.vodobryshkin.miniexchange.dto.order.request.CancelOrderRequest;
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderOperationResponse;
 
 /**
@@ -18,4 +19,12 @@ public interface IOrderService {
      * @return DTO с информацией о созданной заявке.
      */
     OrderOperationResponse createOrder(long userId, CreateOrderRequest request);
+
+    /**
+     * Метод для отмены неисполненной заявки.
+     *
+     * @param userId идентификатор пользователя, который хочет отменить заявку.
+     * @param request запрос на отмену заявки.
+     */
+    void cancelOrder(long userId, CancelOrderRequest request);
 }

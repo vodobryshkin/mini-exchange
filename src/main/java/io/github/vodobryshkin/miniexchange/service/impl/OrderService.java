@@ -3,7 +3,10 @@ package io.github.vodobryshkin.miniexchange.service.impl;
 import io.github.vodobryshkin.miniexchange.domain.order.Order;
 import io.github.vodobryshkin.miniexchange.domain.tradinginstrument.SecCode;
 import io.github.vodobryshkin.miniexchange.dto.order.request.CreateOrderRequest;
+import io.github.vodobryshkin.miniexchange.dto.order.request.CancelOrderRequest;
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderOperationResponse;
+import io.github.vodobryshkin.miniexchange.exception.order.OrderNotCancelledException;
+import io.github.vodobryshkin.miniexchange.exception.order.OrderNotFoundException;
 import io.github.vodobryshkin.miniexchange.exception.tradingaccount.TradingAccountNotFoundException;
 import io.github.vodobryshkin.miniexchange.exception.tradinginstrument.TradingInstrumentNotFoundException;
 import io.github.vodobryshkin.miniexchange.mapper.OrderMapper;
@@ -54,5 +57,29 @@ public class OrderService implements IOrderService {
         orderRepository.save(order);
 
         return OrderOperationResponse.CREATED;
+    }
+
+    /**
+     * Метод для отмены неисполненной заявки.
+     *
+     * @param userId идентификатор пользователя, который хочет отменить заявку.
+     * @param request запрос на отмену заявки.
+     */
+    @Override
+    public void cancelOrder(long userId, CancelOrderRequest request) {
+        long orderId = request.getOrderId();
+
+        Order order = orderRepository.findOrderById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(String.valueOf(orderId)));
+
+        if (!userRepository.linkedToThisTradingAccount(userId, order.getTradingAccountId())) {
+            throw new TradingAccountNotFoundException(String.valueOf(order.getTradingAccountId()));
+        }
+
+        boolean cancelled = orderRepository.cancel(orderId, userId);
+
+        if (!cancelled) {
+            throw new OrderNotCancelledException("Failed to cancel order with ID: " + orderId);
+        }
     }
 }
