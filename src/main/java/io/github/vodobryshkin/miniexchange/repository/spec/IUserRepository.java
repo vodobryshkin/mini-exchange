@@ -1,6 +1,8 @@
 package io.github.vodobryshkin.miniexchange.repository.spec;
 
 import io.github.vodobryshkin.miniexchange.domain.User;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import java.util.Optional;
 
 /**
@@ -15,7 +17,7 @@ public interface IUserRepository {
      *
      * @param user пользователь, которого необходимо сохранить.
      */
-    void save(User user);
+    void save(@NotNull @Valid User user);
 
     /**
      * Метод для поиска пользователя по его имени.

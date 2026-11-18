@@ -19,10 +19,11 @@ public class Order {
     private Long id;
 
     @Valid
+    @NotNull(message = "SEC_CODE_CANNOT_BE_NULL")
     private final SecCode secCode;
 
     @Positive(message = "TRADING_ACCOUNT_ID_MUST_BE_POSITIVE")
-    private final int tradingAccountId;
+    private final long tradingAccountId;
 
     @NotNull(message = "DIRECTION_CANNOT_BE_NULL")
     private final OrderDirection direction;
@@ -33,6 +34,7 @@ public class Order {
     @NotNull(message = "TIME_IN_FORCE_CANNOT_BE_NULL")
     private TimeInForce timeInForce;
 
+    @NotNull(message = "PRICE_CANNOT_BE_NULL")
     @Positive(message = "PRICE_MUST_BE_POSITIVE")
     private BigDecimal price;
 

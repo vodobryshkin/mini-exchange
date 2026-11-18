@@ -117,3 +117,17 @@ CREATE TABLE executions (
 );
 
 --rollback DROP TABLE executions;
+
+--changeset vodobryshkin:009-position-quantity-bigint dbms:postgresql
+
+ALTER TABLE positions
+    ALTER COLUMN quantity TYPE BIGINT;
+
+--rollback ALTER TABLE positions ALTER COLUMN quantity TYPE INTEGER;
+
+
+--changeset vodobryshkin:010-align-canceled-status dbms:postgresql
+
+ALTER TYPE status RENAME VALUE 'CANCELLED' TO 'CANCELED';
+
+--rollback ALTER TYPE status RENAME VALUE 'CANCELED' TO 'CANCELLED';

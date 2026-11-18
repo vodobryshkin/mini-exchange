@@ -21,6 +21,7 @@ public class TradingAccount {
     @Positive(message = "USER_ID_MUST_BE_POSITIVE")
     private final long userId;
 
+    @NotNull(message = "BALANCE_CANNOT_BE_NULL")
     @Min(value = 0, message = "BALANCE_MUST_BE_NON_NEGATIVE")
     private BigDecimal balance;
 

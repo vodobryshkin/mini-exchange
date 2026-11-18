@@ -1,5 +1,6 @@
 package io.github.vodobryshkin.miniexchange.domain;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,7 @@ public class Execution {
     @Positive(message = "SELL_ORDER_ID_MUST_BE_POSITIVE")
     private final long sellOrderId;
 
+    @NotNull(message = "PRICE_CANNOT_BE_NULL")
     @Positive(message = "PRICE_MUST_BE_POSITIVE")
     private final BigDecimal price;
 

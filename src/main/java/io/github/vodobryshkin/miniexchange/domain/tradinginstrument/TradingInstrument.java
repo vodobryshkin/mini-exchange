@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TradingInstrument {
     @Valid
+    @NotNull(message = "SEC_CODE_CANNOT_BE_NULL")
     private final SecCode secCode;
 
     @NotNull(message = "TRADING_INSTRUMENT_TYPE_CANNOT_BE_NULL")
@@ -24,6 +25,7 @@ public class TradingInstrument {
     @Positive(message = "LOT_SIZE_MUST_BE_POSITIVE")
     private int lotSize;
 
+    @NotNull(message = "MIN_STEP_CANNOT_BE_NULL")
     @Positive(message = "MIN_STEP_MUST_BE_POSITIVE")
     private BigDecimal minStep;
 
