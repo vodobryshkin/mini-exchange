@@ -187,3 +187,34 @@ CREATE INDEX idx_spring_session_principal_name ON spring_session (principal_name
 --rollback DROP INDEX idx_orders_account_history;
 --rollback DROP INDEX idx_positions_sec_code;
 --rollback DROP INDEX idx_trading_accounts_user_id;
+
+--changeset vodobryshkin:013-trade-registry-index dbms:postgresql
+
+CREATE INDEX idx_executions_history
+    ON executions (execution_time DESC, execution_id DESC);
+
+--rollback DROP INDEX idx_executions_history;
+
+--changeset vodobryshkin:014-rename-executions-to-trades dbms:postgresql
+
+ALTER TABLE executions RENAME TO trades;
+
+ALTER TABLE trades RENAME COLUMN execution_id TO trade_id;
+ALTER TABLE trades RENAME COLUMN execution_time TO trade_time;
+
+ALTER SEQUENCE executions_execution_id_seq RENAME TO trades_trade_id_seq;
+
+ALTER INDEX idx_executions_buy_order_id RENAME TO idx_trades_buy_order_id;
+ALTER INDEX idx_executions_sell_order_id RENAME TO idx_trades_sell_order_id;
+ALTER INDEX idx_executions_history RENAME TO idx_trades_history;
+
+--rollback ALTER INDEX idx_trades_history RENAME TO idx_executions_history;
+--rollback ALTER INDEX idx_trades_sell_order_id RENAME TO idx_executions_sell_order_id;
+--rollback ALTER INDEX idx_trades_buy_order_id RENAME TO idx_executions_buy_order_id;
+--rollback ALTER SEQUENCE trades_trade_id_seq RENAME TO executions_execution_id_seq;
+--rollback ALTER TABLE trades RENAME CONSTRAINT trades_sell_order_id_fkey TO executions_sell_order_id_fkey;
+--rollback ALTER TABLE trades RENAME CONSTRAINT trades_buy_order_id_fkey TO executions_buy_order_id_fkey;
+--rollback ALTER TABLE trades RENAME CONSTRAINT trades_pkey TO executions_pkey;
+--rollback ALTER TABLE trades RENAME COLUMN trade_time TO execution_time;
+--rollback ALTER TABLE trades RENAME COLUMN trade_id TO execution_id;
+--rollback ALTER TABLE trades RENAME TO executions;

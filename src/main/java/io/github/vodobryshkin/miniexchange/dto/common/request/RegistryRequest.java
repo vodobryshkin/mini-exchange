@@ -9,7 +9,10 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import java.time.OffsetDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -19,6 +22,9 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @since 19.11.2026 00:35
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class RegistryRequest {
     @JsonProperty("trading_account_id")
     @Positive(message = "TRADING_ACCOUNT_ID_MUST_BE_POSITIVE")
@@ -37,10 +43,12 @@ public class RegistryRequest {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private OffsetDateTime to;
 
+    @Builder.Default
     @NotNull(message = "PAGE_CANNOT_BE_NULL")
     @Min(value = 0, message = "PAGE_MUST_BE_NON_NEGATIVE")
     private Integer page = 0;
 
+    @Builder.Default
     @NotNull(message = "SIZE_CANNOT_BE_NULL")
     @Min(value = 1, message = "SIZE_MUST_BE_POSITIVE")
     @Max(value = 100, message = "SIZE_MUST_NOT_EXCEED_100")
