@@ -161,7 +161,7 @@ class AuthControllerTest {
                 .andReturn();
 
         MockHttpSession authenticatedSession = (MockHttpSession) loginResult.getRequest().getSession(false);
-        
+
         assertAll(
                 () -> assertThat(authenticatedSession).isNotNull(),
                 () -> assertThat(authenticatedSession.getId()).isNotEqualTo(previousSessionId)
@@ -211,3 +211,4 @@ class AuthControllerTest {
         verifyNoInteractions(userDetailsService);
     }
 }
+

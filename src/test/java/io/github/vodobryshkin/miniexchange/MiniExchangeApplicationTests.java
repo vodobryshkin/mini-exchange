@@ -3,7 +3,7 @@ package io.github.vodobryshkin.miniexchange;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest(properties = "spring.liquibase.enabled=false")
+@SpringBootTest
 class MiniExchangeApplicationTests {
 
     @Test

@@ -1,0 +1,150 @@
+name: ci.yml
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  APP_HOST: 127.0.0.1
+  APP_PORT: "8080"
+  DB_HOST: 127.0.0.1
+  DB_PORT: "5432"
+  DB_NAME: exchange_ci
+  DB_USER: exchange_ci
+  DB_PASSWORD: ci_password
+  TEST_PASSWORD: CI_Test_Password_2026
+  KEEP_DATA: "0"
+  SPRING_DOCKER_COMPOSE_ENABLED: "false"
+
+jobs:
+  checks:
+    name: JUnit and Checkstyle
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: exchange_ci
+          POSTGRES_USER: exchange_ci
+          POSTGRES_PASSWORD: ci_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U exchange_ci -d exchange_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+
+      - name: Run JUnit and Checkstyle
+        run: bash gradlew test checkstyleMain checkstyleTest --continue --no-daemon
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: junit-checkstyle-reports
+          path: |
+            build/reports/tests/
+            build/test-results/
+            build/reports/checkstyle/
+            build/reports/jacoco/
+          if-no-files-found: ignore
+
+  hurl:
+    name: Hurl integration tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+
+    services:
+      postgres:
+        image: postgres:18
+        env:
+          POSTGRES_DB: exchange_ci
+          POSTGRES_USER: exchange_ci
+          POSTGRES_PASSWORD: ci_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U exchange_ci -d exchange_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: gradle
+
+      - name: Build application
+        run: bash gradlew bootJar --no-daemon
+
+      - name: Start application
+        run: |
+          java -jar build/libs/mini-exchange-*.jar > app.log 2>&1 &
+          echo $! > app.pid
+
+          for attempt in {1..60}; do
+            if curl --fail --silent --connect-timeout 1 --max-time 2 \
+              --output /dev/null http://127.0.0.1:8080/api/v1/auth/csrf; then
+              exit 0
+            fi
+
+            if ! kill -0 "$(cat app.pid)" 2>/dev/null; then
+              cat app.log
+              exit 1
+            fi
+
+            sleep 1
+          done
+
+          cat app.log
+          exit 1
+
+      - name: Build Hurl image
+        run: docker build -t mini-exchange-hurl ./hurl
+
+      - name: Run all Hurl scenarios
+        run: |
+          docker run --rm --network host \
+            -e APP_HOST -e APP_PORT \
+            -e DB_HOST -e DB_PORT -e DB_NAME -e DB_USER -e DB_PASSWORD \
+            -e TEST_PASSWORD -e KEEP_DATA \
+            mini-exchange-hurl all
+
+      - name: Stop application
+        if: always()
+        run: |
+          if [ -f app.pid ]; then
+            kill "$(cat app.pid)" 2>/dev/null || true
+          fi
+
+      - name: Upload application log
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: hurl-application-log
+          path: app.log
+          if-no-files-found: ignore
