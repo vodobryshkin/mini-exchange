@@ -97,12 +97,11 @@ public class AppExceptionHandler {
      * @return HTTP-ответ с описанием ошибки и статусом NOT FOUND.
      */
     @ExceptionHandler(OrderNotFoundException.class)
-    public ResponseEntity<OrderNotFoundException> handleOrderNotFoundException(
+    public ResponseEntity<OrderOperationResponse> handleOrderNotFoundException(
             OrderNotFoundException ex) {
 
-        return ResponseEntity
-                .status(HttpStatus.NOT_FOUND)
-                .body(new OrderNotFoundException(ex.getMessage()));
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new OrderOperationResponse(ex.getMessage()));
     }
 
     /**
