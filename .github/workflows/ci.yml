@@ -55,7 +55,9 @@ jobs:
           cache: gradle
 
       - name: Run JUnit and Checkstyle
-        run: bash gradlew test checkstyleMain checkstyleTest --continue --no-daemon
+        run: >
+          bash gradlew test checkstyleMain checkstyleTest
+          --continue --no-daemon --refresh-dependencies --info
 
       - name: Upload reports
         if: always()
