@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(
-        value = {"/instruments", "/api/instruments"},
+        value = "/instruments",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
 @RequiredArgsConstructor

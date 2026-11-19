@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping(
-        value = {"/trades", "/api/trades"},
+        value = "/trades",
         produces = MediaType.APPLICATION_JSON_VALUE
 )
 @RequiredArgsConstructor

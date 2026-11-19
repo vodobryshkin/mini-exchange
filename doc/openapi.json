@@ -6,7 +6,7 @@
   },
   "servers": [
     {
-      "url": "http://localhost:8080"
+      "url": "http://localhost:8080/api/v1"
     }
   ],
   "tags": [
@@ -68,7 +68,7 @@
             }
           }
         },
-        "operationId": "createOrder",
+        "operationId": "createOrder_2",
         "parameters": [
           {
             "schema": {
@@ -171,7 +171,7 @@
             }
           }
         },
-        "operationId": "getOrders",
+        "operationId": "getOrders_2",
         "parameters": [
           {
             "schema": {
@@ -364,7 +364,7 @@
               "examples": {
                 "json": {
                   "summary": "test data",
-                  "value": "curl -X PATCH -i 'http://localhost:8080/orders/{id}'"
+                  "value": "curl -X PATCH -i 'http://localhost:8080/api/v1/orders/{id}'"
                 }
               }
             }
@@ -388,7 +388,7 @@
             }
           }
         },
-        "operationId": "cancelOrder",
+        "operationId": "cancelOrder_2",
         "parameters": [
           {
             "schema": {
@@ -442,7 +442,7 @@
             }
           }
         },
-        "operationId": "updateOrder",
+        "operationId": "updateOrder_2",
         "parameters": [
           {
             "schema": {
@@ -558,177 +558,7 @@
             }
           }
         },
-        "operationId": "getTrades",
-        "parameters": [
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "password"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "username"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonLocked"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "credentialsNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "enabled"
-          },
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": 0,
-            "name": "id"
-          },
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "query",
-            "description": "идентификатор торгового счета.",
-            "required": false,
-            "example": 0,
-            "name": "tradingAccountId"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "код торгового инструмента.",
-            "required": false,
-            "name": "secCode"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "начало периода включительно.",
-            "required": false,
-            "example": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-            "name": "from"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "конец периода исключительно.",
-            "required": false,
-            "example": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-            "name": "to"
-          },
-          {
-            "schema": {
-              "format": "int32",
-              "type": "integer"
-            },
-            "in": "query",
-            "description": "номер страницы.",
-            "required": true,
-            "example": 0,
-            "name": "page"
-          },
-          {
-            "schema": {
-              "format": "int32",
-              "type": "integer"
-            },
-            "in": "query",
-            "description": "размер страницы.",
-            "required": true,
-            "example": 50,
-            "name": "size"
-          }
-        ]
-      }
-    },
-    "/api/trades": {
-      "get": {
-        "summary": "Метод для получения реестра сделок по доступным пользователю счетам.",
-        "deprecated": false,
-        "tags": [
-          "TradeController"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/d7e0687db104706b167997a7c30a9c39"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"items\": [\n    {\n      \"id\": 0,\n      \"sec_code\": \"\",\n      \"buy_order_id\": 0,\n      \"sell_order_id\": 0,\n      \"buy_trading_account_id\": 0,\n      \"sell_trading_account_id\": 0,\n      \"price\": 0,\n      \"quantity\": 0,\n      \"trade_time\": \"yyyy-MM-dd HH:mm:ss\"\n    }\n  ],\n  \"page\": 0,\n  \"size\": 0,\n  \"total_elements\": 0\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getTrades_1",
+        "operationId": "getTrades_4",
         "parameters": [
           {
             "schema": {
@@ -898,7 +728,7 @@
             }
           }
         },
-        "operationId": "csrf",
+        "operationId": "csrf_2",
         "parameters": [
           {
             "schema": {
@@ -973,7 +803,7 @@
             }
           }
         },
-        "operationId": "register",
+        "operationId": "register_2",
         "parameters": []
       }
     },
@@ -1017,7 +847,7 @@
             }
           }
         },
-        "operationId": "login",
+        "operationId": "login_2",
         "parameters": []
       }
     },
@@ -1046,7 +876,7 @@
             }
           }
         },
-        "operationId": "me",
+        "operationId": "me_2",
         "parameters": [
           {
             "schema": {
@@ -1151,58 +981,7 @@
             }
           }
         },
-        "operationId": "getOrderBook",
-        "parameters": [
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "path",
-            "description": "код торгового инструмента.",
-            "required": true,
-            "name": "secCode"
-          },
-          {
-            "schema": {
-              "format": "int32",
-              "type": "integer"
-            },
-            "in": "query",
-            "description": "No comments found.\nValidation[Min(value=1, message=DEPTH_MUST_BE_BETWEEN_1_AND_100); Max(value=100, message=DEPTH_MUST_BE_BETWEEN_1_AND_100)]",
-            "required": false,
-            "example": 0,
-            "name": "depth"
-          }
-        ]
-      }
-    },
-    "/api/instruments/{secCode}/orderbook": {
-      "get": {
-        "summary": "Метод для получения актуального биржевого стакана по торговому инструменту.",
-        "deprecated": false,
-        "tags": [
-          "OrderBookController"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/00ea43f77ed1a233304241dc5bed3e98"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"sec_code\": \"\",\n  \"depth\": 0,\n  \"bids\": [\n    {\n      \"price\": 0,\n      \"quantity\": 0,\n      \"order_count\": 0\n    }\n  ],\n  \"asks\": [\n    {\n      \"price\": 0,\n      \"quantity\": 0,\n      \"order_count\": 0\n    }\n  ],\n  \"best_bid\": 0,\n  \"best_ask\": 0,\n  \"spread\": 0,\n  \"market_depth\": {\n    \"bid_quantity\": 0,\n    \"ask_quantity\": 0\n  }\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getOrderBook_1",
+        "operationId": "getOrderBook_4",
         "parameters": [
           {
             "schema": {

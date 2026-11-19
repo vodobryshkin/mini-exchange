@@ -236,7 +236,7 @@ jsonpath "$.bids" count == 3
 jsonpath "$.asks" count == 3
 
 # Путь /api и максимальная допустимая глубина 100
-GET {{base_url}}/api/instruments/{{sec_code}}/orderbook?depth=100
+GET {{base_url}}/instruments/{{sec_code}}/orderbook?depth=100
 HTTP 200
 [Asserts]
 jsonpath "$.depth" == 100

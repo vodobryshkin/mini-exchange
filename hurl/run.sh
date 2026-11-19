@@ -17,7 +17,7 @@ sql() {
 
 run_hurl() {
     hurl --test --connect-timeout 5 --max-time 15 --secret "test_password=$password" \
-        --variable "base_url=http://$APP_HOST:$APP_PORT" --variables-file "/tmp/hurl-$number.env" "$@"
+        --variable "base_url=http://$APP_HOST:$APP_PORT/api/v1" --variables-file "/tmp/hurl-$number.env" "$@"
 }
 
 case "${1:-all}" in
