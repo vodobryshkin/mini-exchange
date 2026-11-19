@@ -21,7 +21,7 @@ spring:
       initialize-schema: never
   docker:
     compose:
-      file: compose.yml
+      file: compose.yaml
 
 app:
   security:
