@@ -2,5 +2,9 @@
   "projectName": "mini-exchange",
   "serverUrl": "http://localhost:8080/api/v1",
   "isStrict": false,
-  "outPath": "./build/docs/openapi"
+  "outPath": "./build/docs/openapi",
+  "ignoreRequestParams": [
+    "io.github.vodobryshkin.miniexchange.security.ExchangeUserDetails",
+    "org.springframework.security.web.csrf.CsrfToken"
+  ]
 }

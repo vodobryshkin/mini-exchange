@@ -1,1742 +1,1282 @@
 {
-  "openapi": "3.1.0",
-  "info": {
-    "title": "mini-exchange",
-    "version": "v1.0.0"
-  },
-  "servers": [
-    {
-      "url": "http://localhost:8080/api/v1"
+    "openapi": "3.1.0",
+    "info": {
+        "title": "mini-exchange",
+        "version": "v1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8080/api/v1"
+        }
+    ],
+    "tags": [
+        {
+            "name": "OrderController",
+            "description": "\u041a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440 \u0434\u043b\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u0437\u0430\u043f\u0440\u043e\u0441\u043e\u0432, \u0441\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0445 \u0441 \u0437\u0430\u044f\u0432\u043a\u0430\u043c\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435."
+        },
+        {
+            "name": "AuthController",
+            "description": "\u041a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440, \u043d\u0430 \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0431\u0443\u0434\u0443\u0442 \u043f\u0440\u0438\u0445\u043e\u0434\u0438\u0442\u044c \u0437\u0430\u043f\u0440\u043e\u0441\u044b \u043d\u0430 \u0430\u0443\u0442\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u044e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0435\u0439."
+        },
+        {
+            "name": "OrderBookController",
+            "description": "\u041a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440 \u0434\u043b\u044f \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0438 \u0437\u0430\u043f\u0440\u043e\u0441\u043e\u0432, \u0441\u0432\u044f\u0437\u0430\u043d\u043d\u044b\u0445 \u0441 \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u0435\u043c \u0431\u0438\u0440\u0436\u0435\u0432\u043e\u0433\u043e \u0441\u0442\u0430\u043a\u0430\u043d\u0430."
+        },
+        {
+            "name": "TradeController",
+            "description": "\u041a\u043e\u043d\u0442\u0440\u043e\u043b\u043b\u0435\u0440 \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u0440\u0435\u0435\u0441\u0442\u0440\u0430 \u0437\u0430\u043a\u043b\u044e\u0447\u0435\u043d\u043d\u044b\u0445 \u0441\u0434\u0435\u043b\u043e\u043a."
+        }
+    ],
+    "paths": {
+        "/orders": {
+            "post": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u0441\u043e\u0437\u0434\u0430\u043d\u0438\u044f \u043d\u043e\u0432\u043e\u0439 \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.",
+                "deprecated": false,
+                "tags": [
+                    "OrderController"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/6ff597fe08b2921be1a5dfb491bddeff"
+                            },
+                            "examples": {
+                                "json": {
+                                    "summary": "test data",
+                                    "value": "{\n  \"sec_code\": {\n    \"value\": \"\"\n  },\n  \"trading_account_id\": 0,\n  \"direction\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"time_in_force\": \"DAY\",\n  \"price\": 0,\n  \"quantity\": 0\n}"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/43a94528277055b9c4fac806a4805b59"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"message\": \"\"\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "createOrder_4",
+                "parameters": [
+                    
+                ]
+            },
+            "get": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u0440\u0435\u0435\u0441\u0442\u0440\u0430 \u0437\u0430\u044f\u0432\u043e\u043a \u043f\u043e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044e \u0441\u0447\u0435\u0442\u0430\u043c.",
+                "deprecated": false,
+                "tags": [
+                    "OrderController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/0e10ecdca831a7f9f833258c1de4ed2c"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"items\": [\n    {\n      \"id\": 0,\n      \"secCode\": \"\",\n      \"tradingAccountId\": 0,\n      \"direction\": \"BUY\",\n      \"type\": \"LIMIT\",\n      \"timeInForce\": \"DAY\",\n      \"price\": 0,\n      \"initialQuantity\": 0,\n      \"quantity\": 0,\n      \"filledQuantity\": 0,\n      \"remainingQuantity\": 0,\n      \"status\": \"NEW\",\n      \"creationTime\": \"yyyy-MM-dd HH:mm:ss\",\n      \"expiresAt\": \"yyyy-MM-dd HH:mm:ss\",\n      \"queueSequence\": 0,\n      \"matchingPending\": true\n    }\n  ],\n  \"page\": 0,\n  \"size\": 0,\n  \"total_elements\": 0\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "getOrders_4",
+                "parameters": [
+                    {
+                        "schema": {
+                            "format": "int64",
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "description": "No comments found.\nValidation[Positive(message=TRADING_ACCOUNT_ID_MUST_BE_POSITIVE)]",
+                        "required": false,
+                        "example": 0,
+                        "name": "trading_account_id"
+                    },
+                    {
+                        "schema": {
+                            "format": "string",
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "description": "No comments found.\nValidation[Pattern(regexp=[A-Z0-9._/-]{1,32}, message=SEC_CODE_INVALID)]",
+                        "required": false,
+                        "name": "sec_code"
+                    },
+                    {
+                        "schema": {
+                            "format": "string",
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "description": "No comments found.",
+                        "required": false,
+                        "example": "yyyy-MM-ddTHH:mm:ss.SSSXXX",
+                        "name": "from"
+                    },
+                    {
+                        "schema": {
+                            "format": "string",
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "description": "No comments found.",
+                        "required": false,
+                        "example": "yyyy-MM-ddTHH:mm:ss.SSSXXX",
+                        "name": "to"
+                    },
+                    {
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "description": "No comments found.\nValidation[Min(value=0, message=PAGE_MUST_BE_NON_NEGATIVE)]",
+                        "required": true,
+                        "example": 0,
+                        "name": "page"
+                    },
+                    {
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "description": "No comments found.\nValidation[Min(value=1, message=SIZE_MUST_BE_POSITIVE); Max(value=100, message=SIZE_MUST_NOT_EXCEED_100)]",
+                        "required": true,
+                        "example": 0,
+                        "name": "size"
+                    },
+                    {
+                        "schema": {
+                            "format": "enum",
+                            "type": "string",
+                            "enum": [
+                                "NEW",
+                                "FILLED",
+                                "CANCELLED",
+                                "EXPIRED"
+                            ]
+                        },
+                        "in": "query",
+                        "description": "\u0441\u0442\u0430\u0442\u0443\u0441 \u0437\u0430\u044f\u0432\u043a\u0438.<br/>(See: \u0412\u0441\u0435 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0435 \u0441\u0442\u0430\u0442\u0443\u0441\u044b \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "required": false,
+                        "example": "NEW",
+                        "name": "status"
+                    },
+                    {
+                        "schema": {
+                            "format": "enum",
+                            "type": "string",
+                            "enum": [
+                                "BUY",
+                                "SELL"
+                            ]
+                        },
+                        "in": "query",
+                        "description": "\u043d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0437\u0430\u044f\u0432\u043a\u0438.<br/>(See: \u041d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435: \u043f\u043e\u043a\u0443\u043f\u043a\u0430 \u0438\u043b\u0438 \u043f\u0440\u043e\u0434\u0430\u0436\u0430.)",
+                        "required": false,
+                        "example": "BUY",
+                        "name": "direction"
+                    }
+                ]
+            }
+        },
+        "/orders/{id}": {
+            "patch": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u043e\u0442\u043c\u0435\u043d\u044b \u043d\u0435\u0438\u0441\u043f\u043e\u043b\u043d\u0435\u043d\u043d\u043e\u0433\u043e \u043e\u0441\u0442\u0430\u0442\u043a\u0430 \u0437\u0430\u044f\u0432\u043a\u0438.",
+                "deprecated": false,
+                "tags": [
+                    "OrderController"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                },
+                "operationId": "cancelOrder_4",
+                "parameters": [
+                    {
+                        "schema": {
+                            "format": "int64",
+                            "type": "number"
+                        },
+                        "in": "path",
+                        "description": "\u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0437\u0430\u044f\u0432\u043a\u0438.",
+                        "required": true,
+                        "example": 0,
+                        "name": "id"
+                    }
+                ]
+            },
+            "put": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u0438\u0437\u043c\u0435\u043d\u0435\u043d\u0438\u044f \u0446\u0435\u043d\u044b \u0438 \u043e\u0431\u0449\u0435\u0433\u043e \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u0430 \u0437\u0430\u044f\u0432\u043a\u0438.",
+                "deprecated": false,
+                "tags": [
+                    "OrderController"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/89e1b69a8b6f2fc4824be444db881734"
+                            },
+                            "examples": {
+                                "json": {
+                                    "summary": "test data",
+                                    "value": "{\n  \"time_in_force\": \"DAY\",\n  \"price\": 0,\n  \"quantity\": 0\n}"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/85b757b5d54c3986b13bc94457578678"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"id\": 0,\n  \"secCode\": \"\",\n  \"tradingAccountId\": 0,\n  \"direction\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"timeInForce\": \"DAY\",\n  \"price\": 0,\n  \"initialQuantity\": 0,\n  \"quantity\": 0,\n  \"filledQuantity\": 0,\n  \"remainingQuantity\": 0,\n  \"status\": \"NEW\",\n  \"creationTime\": \"yyyy-MM-dd HH:mm:ss\",\n  \"expiresAt\": \"yyyy-MM-dd HH:mm:ss\",\n  \"queueSequence\": 0,\n  \"matchingPending\": true\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "updateOrder_4",
+                "parameters": [
+                    {
+                        "schema": {
+                            "format": "int64",
+                            "type": "number"
+                        },
+                        "in": "path",
+                        "description": "\u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0437\u0430\u044f\u0432\u043a\u0438.",
+                        "required": true,
+                        "example": 0,
+                        "name": "id"
+                    }
+                ]
+            }
+        },
+        "/trades": {
+            "get": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u0440\u0435\u0435\u0441\u0442\u0440\u0430 \u0441\u0434\u0435\u043b\u043e\u043a \u043f\u043e \u0434\u043e\u0441\u0442\u0443\u043f\u043d\u044b\u043c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044e \u0441\u0447\u0435\u0442\u0430\u043c.",
+                "deprecated": false,
+                "tags": [
+                    "TradeController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/d7e0687db104706b167997a7c30a9c39"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"items\": [\n    {\n      \"id\": 0,\n      \"sec_code\": \"\",\n      \"buy_order_id\": 0,\n      \"sell_order_id\": 0,\n      \"buy_trading_account_id\": 0,\n      \"sell_trading_account_id\": 0,\n      \"price\": 0,\n      \"quantity\": 0,\n      \"trade_time\": \"yyyy-MM-dd HH:mm:ss\"\n    }\n  ],\n  \"page\": 0,\n  \"size\": 0,\n  \"total_elements\": 0\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "getTrades_6",
+                "parameters": [
+                    {
+                        "schema": {
+                            "format": "int64",
+                            "type": "number"
+                        },
+                        "in": "query",
+                        "description": "\u0438\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0433\u043e \u0441\u0447\u0435\u0442\u0430.",
+                        "required": false,
+                        "example": 0,
+                        "name": "tradingAccountId"
+                    },
+                    {
+                        "schema": {
+                            "format": "string",
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "description": "\u043a\u043e\u0434 \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0433\u043e \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0430.",
+                        "required": false,
+                        "name": "secCode"
+                    },
+                    {
+                        "schema": {
+                            "format": "string",
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "description": "\u043d\u0430\u0447\u0430\u043b\u043e \u043f\u0435\u0440\u0438\u043e\u0434\u0430 \u0432\u043a\u043b\u044e\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u043e.",
+                        "required": false,
+                        "example": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+                        "name": "from"
+                    },
+                    {
+                        "schema": {
+                            "format": "string",
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "description": "\u043a\u043e\u043d\u0435\u0446 \u043f\u0435\u0440\u0438\u043e\u0434\u0430 \u0438\u0441\u043a\u043b\u044e\u0447\u0438\u0442\u0435\u043b\u044c\u043d\u043e.",
+                        "required": false,
+                        "example": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
+                        "name": "to"
+                    },
+                    {
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "description": "\u043d\u043e\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b.",
+                        "required": true,
+                        "example": 0,
+                        "name": "page"
+                    },
+                    {
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "description": "\u0440\u0430\u0437\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b.",
+                        "required": true,
+                        "example": 50,
+                        "name": "size"
+                    }
+                ]
+            }
+        },
+        "/auth/csrf": {
+            "get": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f CSRF-\u0442\u043e\u043a\u0435\u043d\u0430.",
+                "deprecated": false,
+                "tags": [
+                    "AuthController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/e03a739ece4e4025ee8f1f4561426762"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"headerName\": \"\",\n  \"parameterName\": \"\",\n  \"token\": \"\"\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "csrf_4",
+                "parameters": [
+                    
+                ]
+            }
+        },
+        "/auth/register": {
+            "post": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u0440\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u0438 \u043d\u043e\u0432\u043e\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.",
+                "deprecated": false,
+                "tags": [
+                    "AuthController"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/e0f2829e0e3f7b0354162afbc0bf7210"
+                            },
+                            "examples": {
+                                "json": {
+                                    "summary": "test data",
+                                    "value": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/a4aba2b0960bba47a9362b7e32c22272"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"message\": \"\"\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "register_4",
+                "parameters": [
+                    
+                ]
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u0430\u0443\u0442\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0446\u0438\u0438 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f \u0438 \u0441\u043e\u0445\u0440\u0430\u043d\u0435\u043d\u0438\u044f \u043a\u043e\u043d\u0442\u0435\u043a\u0441\u0442\u0430 \u0431\u0435\u0437\u043e\u043f\u0430\u0441\u043d\u043e\u0441\u0442\u0438.",
+                "deprecated": false,
+                "tags": [
+                    "AuthController"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/a44bec4f93e5fad539228e49c3026d93"
+                            },
+                            "examples": {
+                                "json": {
+                                    "summary": "test data",
+                                    "value": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/a4aba2b0960bba47a9362b7e32c22272"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"message\": \"\"\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "login_4",
+                "parameters": [
+                    
+                ]
+            }
+        },
+        "/auth/me": {
+            "get": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u0434\u0430\u043d\u043d\u044b\u0445 \u0442\u0435\u043a\u0443\u0449\u0435\u0433\u043e \u0430\u0432\u0442\u043e\u0440\u0438\u0437\u043e\u0432\u0430\u043d\u043d\u043e\u0433\u043e \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.",
+                "deprecated": false,
+                "tags": [
+                    "AuthController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/61004ed098af79acbf23e809e140f33e"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"id\": 0,\n  \"username\": \"\"\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "me_4",
+                "parameters": [
+                    
+                ]
+            }
+        },
+        "/instruments/{secCode}/orderbook": {
+            "get": {
+                "summary": "\u041c\u0435\u0442\u043e\u0434 \u0434\u043b\u044f \u043f\u043e\u043b\u0443\u0447\u0435\u043d\u0438\u044f \u0430\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u0431\u0438\u0440\u0436\u0435\u0432\u043e\u0433\u043e \u0441\u0442\u0430\u043a\u0430\u043d\u0430 \u043f\u043e \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u043c\u0443 \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0443.",
+                "deprecated": false,
+                "tags": [
+                    "OrderBookController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/00ea43f77ed1a233304241dc5bed3e98"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"sec_code\": \"\",\n  \"depth\": 0,\n  \"bids\": [\n    {\n      \"price\": 0,\n      \"quantity\": 0,\n      \"order_count\": 0\n    }\n  ],\n  \"asks\": [\n    {\n      \"price\": 0,\n      \"quantity\": 0,\n      \"order_count\": 0\n    }\n  ],\n  \"best_bid\": 0,\n  \"best_ask\": 0,\n  \"spread\": 0,\n  \"market_depth\": {\n    \"bid_quantity\": 0,\n    \"ask_quantity\": 0\n  }\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "operationId": "getOrderBook_6",
+                "parameters": [
+                    {
+                        "schema": {
+                            "format": "string",
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "description": "\u043a\u043e\u0434 \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0433\u043e \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0430.",
+                        "required": true,
+                        "name": "secCode"
+                    },
+                    {
+                        "schema": {
+                            "format": "int32",
+                            "type": "integer"
+                        },
+                        "in": "query",
+                        "description": "No comments found.\nValidation[Min(value=1, message=DEPTH_MUST_BE_BETWEEN_1_AND_100); Max(value=100, message=DEPTH_MUST_BE_BETWEEN_1_AND_100)]",
+                        "required": false,
+                        "example": 0,
+                        "name": "depth"
+                    }
+                ]
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "summary": "\u0417\u0430\u0432\u0435\u0440\u0448\u0435\u043d\u0438\u0435 \u0441\u0435\u0441\u0441\u0438\u0438 \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f",
+                "tags": [
+                    "AuthController"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "*/*": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/a4aba2b0960bba47a9362b7e32c22272"
+                                },
+                                "examples": {
+                                    "json": {
+                                        "summary": "test data",
+                                        "value": "{\n  \"message\": \"\"\n}"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "e1fbd20ad6b61ce9f8d4b842e878e772": {
+                "type": "object",
+                "properties": {
+                    "bid_quantity": {
+                        "description": "No comments found.(object)",
+                        "type": "object",
+                        "example": "0"
+                    },
+                    "ask_quantity": {
+                        "description": "No comments found.(object)",
+                        "type": "object",
+                        "example": "0"
+                    }
+                }
+            },
+            "f56adbb9832711e387b3e31092d26cb9": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "sec_code": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    },
+                    "buy_order_id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "sell_order_id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "buy_trading_account_id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "sell_trading_account_id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "price": {
+                        "format": "number",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "quantity": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "trade_time": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string",
+                        "example": "yyyy-MM-dd HH:mm:ss"
+                    }
+                }
+            },
+            "a4aba2b0960bba47a9362b7e32c22272": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    }
+                }
+            },
+            "00ea43f77ed1a233304241dc5bed3e98": {
+                "type": "object",
+                "properties": {
+                    "sec_code": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    },
+                    "depth": {
+                        "format": "int32",
+                        "description": "No comments found.",
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "bids": {
+                        "description": "No comments found.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/6aac273cecc5f89bcd720049225ed12c"
+                        }
+                    },
+                    "asks": {
+                        "description": "No comments found.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/e0053e782282baad632286f9a7943b00"
+                        }
+                    },
+                    "best_bid": {
+                        "format": "number",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "best_ask": {
+                        "format": "number",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "spread": {
+                        "format": "number",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "market_depth": {
+                        "description": "No comments found.(object)",
+                        "$ref": "#/components/schemas/e1fbd20ad6b61ce9f8d4b842e878e772"
+                    }
+                }
+            },
+            "85b757b5d54c3986b13bc94457578678": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "sec_code": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    },
+                    "trading_account_id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "direction": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u041d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435: \u043f\u043e\u043a\u0443\u043f\u043a\u0430 \u0438\u043b\u0438 \u043f\u0440\u043e\u0434\u0430\u0436\u0430.)",
+                        "type": "string",
+                        "enum": [
+                            "BUY",
+                            "SELL"
+                        ],
+                        "example": "BUY"
+                    },
+                    "type": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0422\u0438\u043f \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "LIMIT"
+                        ],
+                        "example": "LIMIT"
+                    },
+                    "time_in_force": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0412\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435 \u0440\u0430\u043c\u043a\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "DAY"
+                        ],
+                        "example": "DAY"
+                    },
+                    "price": {
+                        "format": "number",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "initial_quantity": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "quantity": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "filled_quantity": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "remaining_quantity": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "status": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0412\u0441\u0435 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0435 \u0441\u0442\u0430\u0442\u0443\u0441\u044b \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "NEW",
+                            "FILLED",
+                            "CANCELLED",
+                            "EXPIRED"
+                        ],
+                        "example": "NEW"
+                    },
+                    "creation_time": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string",
+                        "example": "yyyy-MM-dd HH:mm:ss"
+                    },
+                    "expires_at": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string",
+                        "example": "yyyy-MM-dd HH:mm:ss"
+                    },
+                    "queue_sequence": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "matching_pending": {
+                        "format": "boolean",
+                        "description": "No comments found.",
+                        "type": "boolean",
+                        "example": true
+                    }
+                }
+            },
+            "d751713988987e9331980363e24189ce": {
+                
+            },
+            "6aac273cecc5f89bcd720049225ed12c": {
+                "type": "object",
+                "properties": {
+                    "price": {
+                        "format": "number",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "quantity": {
+                        "description": "No comments found.(object)",
+                        "type": "object",
+                        "example": "0"
+                    },
+                    "order_count": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    }
+                }
+            },
+            "89e1b69a8b6f2fc4824be444db881734": {
+                "type": "object",
+                "properties": {
+                    "time_in_force": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0412\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435 \u0440\u0430\u043c\u043a\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "DAY"
+                        ],
+                        "example": "DAY"
+                    },
+                    "price": {
+                        "format": "number",
+                        "description": "No comments found.\nValidation[Positive(message=PRICE_MUST_BE_POSITIVE)]",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "quantity": {
+                        "format": "int64",
+                        "description": "No comments found.\nValidation[Positive(message=QUANTITY_MUST_BE_POSITIVE)]",
+                        "type": "number",
+                        "example": 0
+                    }
+                },
+                "required": [
+                    "time_in_force",
+                    "price"
+                ]
+            },
+            "e568e8da21e62f331d20627910d184b4": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "sec_code": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    },
+                    "trading_account_id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "direction": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u041d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435: \u043f\u043e\u043a\u0443\u043f\u043a\u0430 \u0438\u043b\u0438 \u043f\u0440\u043e\u0434\u0430\u0436\u0430.)",
+                        "type": "string",
+                        "enum": [
+                            "BUY",
+                            "SELL"
+                        ],
+                        "example": "BUY"
+                    },
+                    "type": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0422\u0438\u043f \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "LIMIT"
+                        ],
+                        "example": "LIMIT"
+                    },
+                    "time_in_force": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0412\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435 \u0440\u0430\u043c\u043a\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "DAY"
+                        ],
+                        "example": "DAY"
+                    },
+                    "price": {
+                        "format": "number",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "initial_quantity": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "quantity": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "filled_quantity": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "remaining_quantity": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "status": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0412\u0441\u0435 \u0432\u043e\u0437\u043c\u043e\u0436\u043d\u044b\u0435 \u0441\u0442\u0430\u0442\u0443\u0441\u044b \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "NEW",
+                            "FILLED",
+                            "CANCELLED",
+                            "EXPIRED"
+                        ],
+                        "example": "NEW"
+                    },
+                    "creation_time": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string",
+                        "example": "yyyy-MM-dd HH:mm:ss"
+                    },
+                    "expires_at": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string",
+                        "example": "yyyy-MM-dd HH:mm:ss"
+                    },
+                    "queue_sequence": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "matching_pending": {
+                        "format": "boolean",
+                        "description": "No comments found.",
+                        "type": "boolean",
+                        "example": true
+                    }
+                }
+            },
+            "43a94528277055b9c4fac806a4805b59": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    }
+                }
+            },
+            "e0053e782282baad632286f9a7943b00": {
+                "type": "object",
+                "properties": {
+                    "price": {
+                        "format": "number",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "quantity": {
+                        "description": "No comments found.(object)",
+                        "type": "object",
+                        "example": "0"
+                    },
+                    "order_count": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    }
+                }
+            },
+            "defaultPrimitive": {
+                "format": "string",
+                "type": "string"
+            },
+            "0e10ecdca831a7f9f833258c1de4ed2c": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "description": "No comments found.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/e568e8da21e62f331d20627910d184b4"
+                        }
+                    },
+                    "page": {
+                        "format": "int32",
+                        "description": "No comments found.",
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "size": {
+                        "format": "int32",
+                        "description": "No comments found.",
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "total_elements": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    }
+                }
+            },
+            "d5aceacbfbd8408533a7c6056a178a6e": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "format": "string",
+                        "description": "No comments found.\nValidation[Size(max=32, min=1, message=SEC_CODE_MUST_BE_BETWEEN_1_AND_32_CHARACTERS); Pattern(regexp=[A-Z0-9._/-]+, message=SEC_CODE_CAN_ONLY_CONTAIN_UPPERCASE_LETTERS_NUMBERS_AND_SYMBOLS)]",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "value"
+                ]
+            },
+            "61004ed098af79acbf23e809e140f33e": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "username": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    }
+                }
+            },
+            "d7e0687db104706b167997a7c30a9c39": {
+                "type": "object",
+                "properties": {
+                    "items": {
+                        "description": "No comments found.",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/f56adbb9832711e387b3e31092d26cb9"
+                        }
+                    },
+                    "page": {
+                        "format": "int32",
+                        "description": "No comments found.",
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "size": {
+                        "format": "int32",
+                        "description": "No comments found.",
+                        "type": "integer",
+                        "example": 0
+                    },
+                    "total_elements": {
+                        "format": "int64",
+                        "description": "No comments found.",
+                        "type": "number",
+                        "example": 0
+                    }
+                }
+            },
+            "a44bec4f93e5fad539228e49c3026d93": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "format": "string",
+                        "description": "No comments found.\nValidation[Size(max=32, min=0, message=USERNAME_MUST_NOT_EXCEED_32_CHARACTERS)]",
+                        "type": "string"
+                    },
+                    "password": {
+                        "format": "string",
+                        "description": "No comments found.\nValidation[Size(max=128, min=0, message=PASSWORD_MUST_NOT_EXCEED_128_CHARACTERS)]",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "username",
+                    "password"
+                ]
+            },
+            "e0f2829e0e3f7b0354162afbc0bf7210": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "format": "string",
+                        "description": "No comments found.\nValidation[Size(max=32, min=6, message=USERNAME_MUST_BE_BETWEEN_6_AND_32_CHARACTERS); Pattern(regexp=[A-Za-z0-9_]+, message=USERNAME_CAN_ONLY_CONTAIN_LATIN_LETTERS_DIGITS_AND_UNDERSCORE)]",
+                        "type": "string"
+                    },
+                    "password": {
+                        "format": "string",
+                        "description": "No comments found.\nValidation[Size(max=128, min=15, message=PASSWORD_MUST_BE_BETWEEN_15_AND_128_CHARACTERS)]",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "username",
+                    "password"
+                ]
+            },
+            "6ff597fe08b2921be1a5dfb491bddeff": {
+                "type": "object",
+                "properties": {
+                    "sec_code": {
+                        "description": "No comments found.(object)",
+                        "$ref": "#/components/schemas/d5aceacbfbd8408533a7c6056a178a6e"
+                    },
+                    "trading_account_id": {
+                        "format": "int64",
+                        "description": "No comments found.\nValidation[Positive(message=TRADING_ACCOUNT_ID_MUST_BE_POSITIVE)]",
+                        "type": "number",
+                        "example": 0
+                    },
+                    "direction": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u041d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u0438\u0435 \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435: \u043f\u043e\u043a\u0443\u043f\u043a\u0430 \u0438\u043b\u0438 \u043f\u0440\u043e\u0434\u0430\u0436\u0430.)",
+                        "type": "string",
+                        "enum": [
+                            "BUY",
+                            "SELL"
+                        ],
+                        "example": "BUY"
+                    },
+                    "type": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0422\u0438\u043f \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "LIMIT"
+                        ],
+                        "example": "LIMIT"
+                    },
+                    "time_in_force": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0412\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435 \u0440\u0430\u043c\u043a\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "DAY"
+                        ],
+                        "example": "DAY"
+                    },
+                    "price": {
+                        "format": "number",
+                        "description": "No comments found.\nValidation[Positive(message=PRICE_MUST_BE_POSITIVE)]",
+                        "type": "number",
+                        "example": "0"
+                    },
+                    "quantity": {
+                        "format": "int64",
+                        "description": "No comments found.\nValidation[Positive(message=QUANTITY_MUST_BE_POSITIVE)]",
+                        "type": "number",
+                        "example": 0
+                    }
+                },
+                "required": [
+                    "sec_code",
+                    "direction",
+                    "type",
+                    "time_in_force",
+                    "price"
+                ]
+            },
+            "e03a739ece4e4025ee8f1f4561426762": {
+                "type": "object",
+                "properties": {
+                    "headerName": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    },
+                    "parameterName": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    },
+                    "token": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    }
+                }
+            }
+        }
     }
-  ],
-  "tags": [
-    {
-      "name": "OrderController",
-      "description": "Контроллер для обработки запросов, связанных с заявками на бирже."
-    },
-    {
-      "name": "AuthController",
-      "description": "Контроллер, на который будут приходить запросы на аутентификацию пользователей."
-    },
-    {
-      "name": "OrderBookController",
-      "description": "Контроллер для обработки запросов, связанных с получением биржевого стакана."
-    },
-    {
-      "name": "TradeController",
-      "description": "Контроллер для получения реестра заключенных сделок."
-    }
-  ],
-  "paths": {
-    "/orders": {
-      "post": {
-        "summary": "Метод для создания новой заявки на бирже.",
-        "deprecated": false,
-        "tags": [
-          "OrderController"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/6ff597fe08b2921be1a5dfb491bddeff"
-              },
-              "examples": {
-                "json": {
-                  "summary": "test data",
-                  "value": "{\n  \"sec_code\": {\n    \"value\": \"\"\n  },\n  \"trading_account_id\": 0,\n  \"direction\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"time_in_force\": \"DAY\",\n  \"price\": 0,\n  \"quantity\": 0\n}"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/43a94528277055b9c4fac806a4805b59"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"message\": \"\"\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "createOrder_2",
-        "parameters": [
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "password"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "username"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonLocked"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "credentialsNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "enabled"
-          },
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": 0,
-            "name": "id"
-          }
-        ]
-      },
-      "get": {
-        "summary": "Метод для получения реестра заявок по доступным пользователю счетам.",
-        "deprecated": false,
-        "tags": [
-          "OrderController"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/0e10ecdca831a7f9f833258c1de4ed2c"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"items\": [\n    {\n      \"id\": 0,\n      \"secCode\": \"\",\n      \"tradingAccountId\": 0,\n      \"direction\": \"BUY\",\n      \"type\": \"LIMIT\",\n      \"timeInForce\": \"DAY\",\n      \"price\": 0,\n      \"initialQuantity\": 0,\n      \"quantity\": 0,\n      \"filledQuantity\": 0,\n      \"remainingQuantity\": 0,\n      \"status\": \"NEW\",\n      \"creationTime\": \"yyyy-MM-dd HH:mm:ss\",\n      \"expiresAt\": \"yyyy-MM-dd HH:mm:ss\",\n      \"queueSequence\": 0,\n      \"matchingPending\": true\n    }\n  ],\n  \"page\": 0,\n  \"size\": 0,\n  \"total_elements\": 0\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getOrders_2",
-        "parameters": [
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "password"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "username"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonLocked"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "credentialsNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "enabled"
-          },
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": 0,
-            "name": "id"
-          },
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "query",
-            "description": "No comments found.\nValidation[Positive(message=TRADING_ACCOUNT_ID_MUST_BE_POSITIVE)]",
-            "required": false,
-            "example": 0,
-            "name": "trading_account_id"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.\nValidation[Pattern(regexp=[A-Z0-9._/-]{1,32}, message=SEC_CODE_INVALID)]",
-            "required": false,
-            "name": "sec_code"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": "yyyy-MM-ddTHH:mm:ss.SSSXXX",
-            "name": "from"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": "yyyy-MM-ddTHH:mm:ss.SSSXXX",
-            "name": "to"
-          },
-          {
-            "schema": {
-              "format": "int32",
-              "type": "integer"
-            },
-            "in": "query",
-            "description": "No comments found.\nValidation[Min(value=0, message=PAGE_MUST_BE_NON_NEGATIVE)]",
-            "required": true,
-            "example": 0,
-            "name": "page"
-          },
-          {
-            "schema": {
-              "format": "int32",
-              "type": "integer"
-            },
-            "in": "query",
-            "description": "No comments found.\nValidation[Min(value=1, message=SIZE_MUST_BE_POSITIVE); Max(value=100, message=SIZE_MUST_NOT_EXCEED_100)]",
-            "required": true,
-            "example": 0,
-            "name": "size"
-          },
-          {
-            "schema": {
-              "format": "enum",
-              "type": "string",
-              "enum": [
-                "NEW",
-                "FILLED",
-                "CANCELLED",
-                "EXPIRED"
-              ]
-            },
-            "in": "query",
-            "description": "статус заявки.<br/>(See: Все возможные статусы заявки на бирже.)",
-            "required": false,
-            "example": "NEW",
-            "name": "status"
-          },
-          {
-            "schema": {
-              "format": "enum",
-              "type": "string",
-              "enum": [
-                "BUY",
-                "SELL"
-              ]
-            },
-            "in": "query",
-            "description": "направление заявки.<br/>(See: Направление заявки на бирже: покупка или продажа.)",
-            "required": false,
-            "example": "BUY",
-            "name": "direction"
-          }
-        ]
-      }
-    },
-    "/orders/{id}": {
-      "patch": {
-        "summary": "Метод для отмены неисполненного остатка заявки.",
-        "deprecated": false,
-        "tags": [
-          "OrderController"
-        ],
-        "requestBody": {
-          "content": {
-            "application/x-www-form-urlencoded": {
-              "schema": {
-                "$ref": "#/components/schemas/d751713988987e9331980363e24189ce"
-              },
-              "examples": {
-                "json": {
-                  "summary": "test data",
-                  "value": "curl -X PATCH -i 'http://localhost:8080/api/v1/orders/{id}'"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": ""
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "cancelOrder_2",
-        "parameters": [
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "path",
-            "description": "идентификатор заявки.",
-            "required": true,
-            "example": 0,
-            "name": "id"
-          }
-        ]
-      },
-      "put": {
-        "summary": "Метод для изменения цены и общего количества заявки.",
-        "deprecated": false,
-        "tags": [
-          "OrderController"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/89e1b69a8b6f2fc4824be444db881734"
-              },
-              "examples": {
-                "json": {
-                  "summary": "test data",
-                  "value": "{\n  \"time_in_force\": \"DAY\",\n  \"price\": 0,\n  \"quantity\": 0\n}"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/85b757b5d54c3986b13bc94457578678"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"id\": 0,\n  \"secCode\": \"\",\n  \"tradingAccountId\": 0,\n  \"direction\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"timeInForce\": \"DAY\",\n  \"price\": 0,\n  \"initialQuantity\": 0,\n  \"quantity\": 0,\n  \"filledQuantity\": 0,\n  \"remainingQuantity\": 0,\n  \"status\": \"NEW\",\n  \"creationTime\": \"yyyy-MM-dd HH:mm:ss\",\n  \"expiresAt\": \"yyyy-MM-dd HH:mm:ss\",\n  \"queueSequence\": 0,\n  \"matchingPending\": true\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "updateOrder_2",
-        "parameters": [
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "path",
-            "description": "идентификатор заявки.",
-            "required": true,
-            "example": 0,
-            "name": "id"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "password"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "username"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonLocked"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "credentialsNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "enabled"
-          },
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": 0,
-            "name": "id"
-          }
-        ]
-      }
-    },
-    "/trades": {
-      "get": {
-        "summary": "Метод для получения реестра сделок по доступным пользователю счетам.",
-        "deprecated": false,
-        "tags": [
-          "TradeController"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/d7e0687db104706b167997a7c30a9c39"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"items\": [\n    {\n      \"id\": 0,\n      \"sec_code\": \"\",\n      \"buy_order_id\": 0,\n      \"sell_order_id\": 0,\n      \"buy_trading_account_id\": 0,\n      \"sell_trading_account_id\": 0,\n      \"price\": 0,\n      \"quantity\": 0,\n      \"trade_time\": \"yyyy-MM-dd HH:mm:ss\"\n    }\n  ],\n  \"page\": 0,\n  \"size\": 0,\n  \"total_elements\": 0\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getTrades_4",
-        "parameters": [
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "password"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "username"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonLocked"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "credentialsNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "enabled"
-          },
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": 0,
-            "name": "id"
-          },
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "query",
-            "description": "идентификатор торгового счета.",
-            "required": false,
-            "example": 0,
-            "name": "tradingAccountId"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "код торгового инструмента.",
-            "required": false,
-            "name": "secCode"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "начало периода включительно.",
-            "required": false,
-            "example": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-            "name": "from"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "конец периода исключительно.",
-            "required": false,
-            "example": "yyyy-MM-dd'T'HH:mm:ss.SSSXXX",
-            "name": "to"
-          },
-          {
-            "schema": {
-              "format": "int32",
-              "type": "integer"
-            },
-            "in": "query",
-            "description": "номер страницы.",
-            "required": true,
-            "example": 0,
-            "name": "page"
-          },
-          {
-            "schema": {
-              "format": "int32",
-              "type": "integer"
-            },
-            "in": "query",
-            "description": "размер страницы.",
-            "required": true,
-            "example": 50,
-            "name": "size"
-          }
-        ]
-      }
-    },
-    "/auth/csrf": {
-      "get": {
-        "summary": "Метод для получения CSRF-токена.",
-        "deprecated": false,
-        "tags": [
-          "AuthController"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/e03a739ece4e4025ee8f1f4561426762"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"headerName\": \"\",\n  \"parameterName\": \"\",\n  \"token\": \"\"\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "csrf_2",
-        "parameters": [
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "Gets the HTTP header that the CSRF is populated on the response and can be placed\non requests instead of the parameter. Cannot be null.",
-            "required": false,
-            "name": "headerName"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "Gets the HTTP parameter name that should contain the token. Cannot be null.",
-            "required": false,
-            "name": "parameterName"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "Gets the token value. Cannot be null.",
-            "required": false,
-            "name": "token"
-          }
-        ]
-      }
-    },
-    "/auth/register": {
-      "post": {
-        "summary": "Метод для регистрации нового пользователя.",
-        "deprecated": false,
-        "tags": [
-          "AuthController"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/e0f2829e0e3f7b0354162afbc0bf7210"
-              },
-              "examples": {
-                "json": {
-                  "summary": "test data",
-                  "value": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/a4aba2b0960bba47a9362b7e32c22272"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"message\": \"\"\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "register_2",
-        "parameters": []
-      }
-    },
-    "/auth/login": {
-      "post": {
-        "summary": "Метод для аутентификации пользователя и сохранения контекста безопасности.",
-        "deprecated": false,
-        "tags": [
-          "AuthController"
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/a44bec4f93e5fad539228e49c3026d93"
-              },
-              "examples": {
-                "json": {
-                  "summary": "test data",
-                  "value": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}"
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/a4aba2b0960bba47a9362b7e32c22272"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"message\": \"\"\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "login_2",
-        "parameters": []
-      }
-    },
-    "/auth/me": {
-      "get": {
-        "summary": "Метод для получения данных текущего авторизованного пользователя.",
-        "deprecated": false,
-        "tags": [
-          "AuthController"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/61004ed098af79acbf23e809e140f33e"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"id\": 0,\n  \"username\": \"\"\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "me_2",
-        "parameters": [
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "password"
-          },
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "name": "username"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "accountNonLocked"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "credentialsNonExpired"
-          },
-          {
-            "schema": {
-              "format": "boolean",
-              "type": "boolean"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": true,
-            "name": "enabled"
-          },
-          {
-            "schema": {
-              "format": "int64",
-              "type": "number"
-            },
-            "in": "query",
-            "description": "No comments found.",
-            "required": false,
-            "example": 0,
-            "name": "id"
-          }
-        ]
-      }
-    },
-    "/instruments/{secCode}/orderbook": {
-      "get": {
-        "summary": "Метод для получения актуального биржевого стакана по торговому инструменту.",
-        "deprecated": false,
-        "tags": [
-          "OrderBookController"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/00ea43f77ed1a233304241dc5bed3e98"
-                },
-                "examples": {
-                  "json": {
-                    "summary": "test data",
-                    "value": "{\n  \"sec_code\": \"\",\n  \"depth\": 0,\n  \"bids\": [\n    {\n      \"price\": 0,\n      \"quantity\": 0,\n      \"order_count\": 0\n    }\n  ],\n  \"asks\": [\n    {\n      \"price\": 0,\n      \"quantity\": 0,\n      \"order_count\": 0\n    }\n  ],\n  \"best_bid\": 0,\n  \"best_ask\": 0,\n  \"spread\": 0,\n  \"market_depth\": {\n    \"bid_quantity\": 0,\n    \"ask_quantity\": 0\n  }\n}"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "operationId": "getOrderBook_4",
-        "parameters": [
-          {
-            "schema": {
-              "format": "string",
-              "type": "string"
-            },
-            "in": "path",
-            "description": "код торгового инструмента.",
-            "required": true,
-            "name": "secCode"
-          },
-          {
-            "schema": {
-              "format": "int32",
-              "type": "integer"
-            },
-            "in": "query",
-            "description": "No comments found.\nValidation[Min(value=1, message=DEPTH_MUST_BE_BETWEEN_1_AND_100); Max(value=100, message=DEPTH_MUST_BE_BETWEEN_1_AND_100)]",
-            "required": false,
-            "example": 0,
-            "name": "depth"
-          }
-        ]
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "e1fbd20ad6b61ce9f8d4b842e878e772": {
-        "type": "object",
-        "properties": {
-          "bid_quantity": {
-            "description": "No comments found.(object)",
-            "type": "object",
-            "example": "0"
-          },
-          "ask_quantity": {
-            "description": "No comments found.(object)",
-            "type": "object",
-            "example": "0"
-          }
-        }
-      },
-      "0f24b5717407d6381c0b7822df711b67": {
-        "type": "object",
-        "properties": {
-          "authority": {
-            "format": "string",
-            "description": "If the <code>GrantedAuthority</code> can be represented as a <code>String</code>\nand that <code>String</code> is sufficient in precision to be relied upon for an\naccess control decision by an {@link AuthorizationManager} (or delegate), this\nmethod should return such a <code>String</code>.\n<p>\nIf the <code>GrantedAuthority</code> cannot be expressed with sufficient precision\nas a <code>String</code>, <code>null</code> should be returned. Returning\n<code>null</code> will require an <code>AccessDecisionManager</code> (or delegate)\nto specifically support the <code>GrantedAuthority</code> implementation, so\nreturning <code>null</code> should be avoided unless actually required.",
-            "type": "string"
-          }
-        }
-      },
-      "f56adbb9832711e387b3e31092d26cb9": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "sec_code": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          },
-          "buy_order_id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "sell_order_id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "buy_trading_account_id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "sell_trading_account_id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "price": {
-            "format": "number",
-            "description": "No comments found.",
-            "type": "number",
-            "example": "0"
-          },
-          "quantity": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "trade_time": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string",
-            "example": "yyyy-MM-dd HH:mm:ss"
-          }
-        }
-      },
-      "a4aba2b0960bba47a9362b7e32c22272": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          }
-        }
-      },
-      "00ea43f77ed1a233304241dc5bed3e98": {
-        "type": "object",
-        "properties": {
-          "sec_code": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          },
-          "depth": {
-            "format": "int32",
-            "description": "No comments found.",
-            "type": "integer",
-            "example": 0
-          },
-          "bids": {
-            "description": "No comments found.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/6aac273cecc5f89bcd720049225ed12c"
-            }
-          },
-          "asks": {
-            "description": "No comments found.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/e0053e782282baad632286f9a7943b00"
-            }
-          },
-          "best_bid": {
-            "format": "number",
-            "description": "No comments found.",
-            "type": "number",
-            "example": "0"
-          },
-          "best_ask": {
-            "format": "number",
-            "description": "No comments found.",
-            "type": "number",
-            "example": "0"
-          },
-          "spread": {
-            "format": "number",
-            "description": "No comments found.",
-            "type": "number",
-            "example": "0"
-          },
-          "market_depth": {
-            "description": "No comments found.(object)",
-            "$ref": "#/components/schemas/e1fbd20ad6b61ce9f8d4b842e878e772"
-          }
-        }
-      },
-      "85b757b5d54c3986b13bc94457578678": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "sec_code": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          },
-          "trading_account_id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "direction": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Направление заявки на бирже: покупка или продажа.)",
-            "type": "string",
-            "enum": [
-              "BUY",
-              "SELL"
-            ],
-            "example": "BUY"
-          },
-          "type": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Тип заявки на бирже.)",
-            "type": "string",
-            "enum": [
-              "LIMIT"
-            ],
-            "example": "LIMIT"
-          },
-          "time_in_force": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Временные рамки действия заявки на бирже.)",
-            "type": "string",
-            "enum": [
-              "DAY"
-            ],
-            "example": "DAY"
-          },
-          "price": {
-            "format": "number",
-            "description": "No comments found.",
-            "type": "number",
-            "example": "0"
-          },
-          "initial_quantity": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "quantity": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "filled_quantity": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "remaining_quantity": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "status": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Все возможные статусы заявки на бирже.)",
-            "type": "string",
-            "enum": [
-              "NEW",
-              "FILLED",
-              "CANCELLED",
-              "EXPIRED"
-            ],
-            "example": "NEW"
-          },
-          "creation_time": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string",
-            "example": "yyyy-MM-dd HH:mm:ss"
-          },
-          "expires_at": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string",
-            "example": "yyyy-MM-dd HH:mm:ss"
-          },
-          "queue_sequence": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "matching_pending": {
-            "format": "boolean",
-            "description": "No comments found.",
-            "type": "boolean",
-            "example": true
-          }
-        }
-      },
-      "d751713988987e9331980363e24189ce": {},
-      "6aac273cecc5f89bcd720049225ed12c": {
-        "type": "object",
-        "properties": {
-          "price": {
-            "format": "number",
-            "description": "No comments found.",
-            "type": "number",
-            "example": "0"
-          },
-          "quantity": {
-            "description": "No comments found.(object)",
-            "type": "object",
-            "example": "0"
-          },
-          "order_count": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          }
-        }
-      },
-      "89e1b69a8b6f2fc4824be444db881734": {
-        "type": "object",
-        "properties": {
-          "time_in_force": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Временные рамки действия заявки на бирже.)",
-            "type": "string",
-            "enum": [
-              "DAY"
-            ],
-            "example": "DAY"
-          },
-          "price": {
-            "format": "number",
-            "description": "No comments found.\nValidation[Positive(message=PRICE_MUST_BE_POSITIVE)]",
-            "type": "number",
-            "example": "0"
-          },
-          "quantity": {
-            "format": "int64",
-            "description": "No comments found.\nValidation[Positive(message=QUANTITY_MUST_BE_POSITIVE)]",
-            "type": "number",
-            "example": 0
-          }
-        },
-        "required": [
-          "time_in_force",
-          "price"
-        ]
-      },
-      "e568e8da21e62f331d20627910d184b4": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "sec_code": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          },
-          "trading_account_id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "direction": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Направление заявки на бирже: покупка или продажа.)",
-            "type": "string",
-            "enum": [
-              "BUY",
-              "SELL"
-            ],
-            "example": "BUY"
-          },
-          "type": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Тип заявки на бирже.)",
-            "type": "string",
-            "enum": [
-              "LIMIT"
-            ],
-            "example": "LIMIT"
-          },
-          "time_in_force": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Временные рамки действия заявки на бирже.)",
-            "type": "string",
-            "enum": [
-              "DAY"
-            ],
-            "example": "DAY"
-          },
-          "price": {
-            "format": "number",
-            "description": "No comments found.",
-            "type": "number",
-            "example": "0"
-          },
-          "initial_quantity": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "quantity": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "filled_quantity": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "remaining_quantity": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "status": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Все возможные статусы заявки на бирже.)",
-            "type": "string",
-            "enum": [
-              "NEW",
-              "FILLED",
-              "CANCELLED",
-              "EXPIRED"
-            ],
-            "example": "NEW"
-          },
-          "creation_time": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string",
-            "example": "yyyy-MM-dd HH:mm:ss"
-          },
-          "expires_at": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string",
-            "example": "yyyy-MM-dd HH:mm:ss"
-          },
-          "queue_sequence": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "matching_pending": {
-            "format": "boolean",
-            "description": "No comments found.",
-            "type": "boolean",
-            "example": true
-          }
-        }
-      },
-      "43a94528277055b9c4fac806a4805b59": {
-        "type": "object",
-        "properties": {
-          "message": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          }
-        }
-      },
-      "e0053e782282baad632286f9a7943b00": {
-        "type": "object",
-        "properties": {
-          "price": {
-            "format": "number",
-            "description": "No comments found.",
-            "type": "number",
-            "example": "0"
-          },
-          "quantity": {
-            "description": "No comments found.(object)",
-            "type": "object",
-            "example": "0"
-          },
-          "order_count": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          }
-        }
-      },
-      "defaultPrimitive": {
-        "format": "string",
-        "type": "string"
-      },
-      "0e10ecdca831a7f9f833258c1de4ed2c": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "description": "No comments found.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/e568e8da21e62f331d20627910d184b4"
-            }
-          },
-          "page": {
-            "format": "int32",
-            "description": "No comments found.",
-            "type": "integer",
-            "example": 0
-          },
-          "size": {
-            "format": "int32",
-            "description": "No comments found.",
-            "type": "integer",
-            "example": 0
-          },
-          "total_elements": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          }
-        }
-      },
-      "d5aceacbfbd8408533a7c6056a178a6e": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "format": "string",
-            "description": "No comments found.\nValidation[Size(max=32, min=1, message=SEC_CODE_MUST_BE_BETWEEN_1_AND_32_CHARACTERS); Pattern(regexp=[A-Z0-9._/-]+, message=SEC_CODE_CAN_ONLY_CONTAIN_UPPERCASE_LETTERS_NUMBERS_AND_SYMBOLS)]",
-            "type": "string"
-          }
-        },
-        "required": [
-          "value"
-        ]
-      },
-      "61004ed098af79acbf23e809e140f33e": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          },
-          "username": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          }
-        }
-      },
-      "d7e0687db104706b167997a7c30a9c39": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "description": "No comments found.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/f56adbb9832711e387b3e31092d26cb9"
-            }
-          },
-          "page": {
-            "format": "int32",
-            "description": "No comments found.",
-            "type": "integer",
-            "example": 0
-          },
-          "size": {
-            "format": "int32",
-            "description": "No comments found.",
-            "type": "integer",
-            "example": 0
-          },
-          "total_elements": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          }
-        }
-      },
-      "a44bec4f93e5fad539228e49c3026d93": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "format": "string",
-            "description": "No comments found.\nValidation[Size(max=32, min=0, message=USERNAME_MUST_NOT_EXCEED_32_CHARACTERS)]",
-            "type": "string"
-          },
-          "password": {
-            "format": "string",
-            "description": "No comments found.\nValidation[Size(max=128, min=0, message=PASSWORD_MUST_NOT_EXCEED_128_CHARACTERS)]",
-            "type": "string"
-          }
-        },
-        "required": [
-          "username",
-          "password"
-        ]
-      },
-      "e0f2829e0e3f7b0354162afbc0bf7210": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "format": "string",
-            "description": "No comments found.\nValidation[Size(max=32, min=6, message=USERNAME_MUST_BE_BETWEEN_6_AND_32_CHARACTERS); Pattern(regexp=[A-Za-z0-9_]+, message=USERNAME_CAN_ONLY_CONTAIN_LATIN_LETTERS_DIGITS_AND_UNDERSCORE)]",
-            "type": "string"
-          },
-          "password": {
-            "format": "string",
-            "description": "No comments found.\nValidation[Size(max=128, min=15, message=PASSWORD_MUST_BE_BETWEEN_15_AND_128_CHARACTERS)]",
-            "type": "string"
-          }
-        },
-        "required": [
-          "username",
-          "password"
-        ]
-      },
-      "6ff597fe08b2921be1a5dfb491bddeff": {
-        "type": "object",
-        "properties": {
-          "sec_code": {
-            "description": "No comments found.(object)",
-            "$ref": "#/components/schemas/d5aceacbfbd8408533a7c6056a178a6e"
-          },
-          "trading_account_id": {
-            "format": "int64",
-            "description": "No comments found.\nValidation[Positive(message=TRADING_ACCOUNT_ID_MUST_BE_POSITIVE)]",
-            "type": "number",
-            "example": 0
-          },
-          "direction": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Направление заявки на бирже: покупка или продажа.)",
-            "type": "string",
-            "enum": [
-              "BUY",
-              "SELL"
-            ],
-            "example": "BUY"
-          },
-          "type": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Тип заявки на бирже.)",
-            "type": "string",
-            "enum": [
-              "LIMIT"
-            ],
-            "example": "LIMIT"
-          },
-          "time_in_force": {
-            "format": "enum",
-            "description": "No comments found.<br/>(See: Временные рамки действия заявки на бирже.)",
-            "type": "string",
-            "enum": [
-              "DAY"
-            ],
-            "example": "DAY"
-          },
-          "price": {
-            "format": "number",
-            "description": "No comments found.\nValidation[Positive(message=PRICE_MUST_BE_POSITIVE)]",
-            "type": "number",
-            "example": "0"
-          },
-          "quantity": {
-            "format": "int64",
-            "description": "No comments found.\nValidation[Positive(message=QUANTITY_MUST_BE_POSITIVE)]",
-            "type": "number",
-            "example": 0
-          }
-        },
-        "required": [
-          "sec_code",
-          "direction",
-          "type",
-          "time_in_force",
-          "price"
-        ]
-      },
-      "e03a739ece4e4025ee8f1f4561426762": {
-        "type": "object",
-        "properties": {
-          "headerName": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          },
-          "parameterName": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          },
-          "token": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          }
-        }
-      },
-      "69843aead3dd30b6fc7b6169e9ca1be9": {
-        "type": "object",
-        "properties": {
-          "password": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          },
-          "username": {
-            "format": "string",
-            "description": "No comments found.",
-            "type": "string"
-          },
-          "authorities": {
-            "description": "No comments found.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/0f24b5717407d6381c0b7822df711b67"
-            }
-          },
-          "accountNonExpired": {
-            "format": "boolean",
-            "description": "No comments found.",
-            "type": "boolean",
-            "example": true
-          },
-          "accountNonLocked": {
-            "format": "boolean",
-            "description": "No comments found.",
-            "type": "boolean",
-            "example": true
-          },
-          "credentialsNonExpired": {
-            "format": "boolean",
-            "description": "No comments found.",
-            "type": "boolean",
-            "example": true
-          },
-          "enabled": {
-            "format": "boolean",
-            "description": "No comments found.",
-            "type": "boolean",
-            "example": true
-          },
-          "id": {
-            "format": "int64",
-            "description": "No comments found.",
-            "type": "number",
-            "example": 0
-          }
-        }
-      }
-    }
-  }
 }

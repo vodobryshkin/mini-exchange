@@ -1,3 +1,6 @@
+import groovy.json.JsonOutput
+import groovy.json.JsonSlurper
+
 plugins {
     java
     checkstyle
@@ -92,4 +95,50 @@ smartdoc {
 
 tasks.named("build") {
     dependsOn("smartDocOpenApi")
+}
+
+tasks.named("smartDocOpenApi") {
+    doLast {
+        @Suppress("UNCHECKED_CAST")
+        fun obj(value: Any?) = value as MutableMap<String, Any?>
+
+        val generated = file("build/docs/openapi/openapi.json")
+        val spec = obj(JsonSlurper().parse(generated))
+        val paths = obj(spec["paths"])
+
+        fun operation(path: String, method: String) =
+            obj(obj(paths[path])[method])
+
+        for (path in listOf("/orders", "/auth/register")) {
+            val responses = obj(operation(path, "post")["responses"])
+            val created = obj(
+                responses.remove("200") ?: responses.getValue("201")
+            )
+
+            created["description"] = "Created"
+            responses["201"] = created
+        }
+
+        val cancel = operation("/orders/{id}", "patch")
+        val responses = obj(cancel["responses"])
+
+        responses.remove("200")
+        responses["204"] = mapOf("description" to "No Content")
+        cancel.remove("requestBody")
+
+        paths["/auth/logout"] = mapOf(
+            "post" to mapOf(
+                "summary" to "Завершение сессии пользователя",
+                "tags" to listOf("AuthController"),
+                "responses" to operation("/auth/login", "post")["responses"]
+            )
+        )
+
+        val json = JsonOutput.prettyPrint(JsonOutput.toJson(spec))
+        generated.writeText(json)
+
+        val published = file("doc/openapi.json")
+        published.parentFile.mkdirs()
+        published.writeText(json)
+    }
 }
