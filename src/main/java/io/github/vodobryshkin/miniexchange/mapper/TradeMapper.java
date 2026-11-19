@@ -1,4 +1,5 @@
 package io.github.vodobryshkin.miniexchange.mapper;
+
 import io.github.vodobryshkin.miniexchange.domain.Trade;
 import io.github.vodobryshkin.miniexchange.dto.trade.response.TradeResponse;
 import org.mapstruct.Mapper;

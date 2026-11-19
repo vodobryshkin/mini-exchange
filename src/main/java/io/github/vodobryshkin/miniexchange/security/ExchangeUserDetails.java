@@ -18,6 +18,13 @@ public class ExchangeUserDetails extends User {
 
     private final long id;
 
+    /**
+     * Конструктор пользователя Spring Security.
+     *
+     * @param id идентификатор пользователя.
+     * @param username имя пользователя.
+     * @param passwordHash хеш пароля.
+     */
     public ExchangeUserDetails(long id, String username, String passwordHash) {
         super(username, passwordHash, List.of());
         this.id = id;

@@ -30,6 +30,12 @@ public class User {
     @Size(max = 255, message = "PASSWORD_HASH_MUST_NOT_EXCEED_255_CHARACTERS")
     private String passwordHash;
 
+    /**
+     * Конструктор пользователя без идентификатора.
+     *
+     * @param username имя пользователя.
+     * @param passwordHash хеш пароля.
+     */
     public User(String username, String passwordHash) {
         this.username = username;
         this.passwordHash = passwordHash;

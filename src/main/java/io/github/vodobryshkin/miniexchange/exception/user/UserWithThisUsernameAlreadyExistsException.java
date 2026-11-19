@@ -7,6 +7,9 @@ package io.github.vodobryshkin.miniexchange.exception.user;
  * @since 18.11.2026 16:17
  */
 public class UserWithThisUsernameAlreadyExistsException extends RuntimeException {
+    /**
+     * Конструктор исключения.
+     */
     public UserWithThisUsernameAlreadyExistsException() {
         super("USER_ALREADY_EXISTS");
     }

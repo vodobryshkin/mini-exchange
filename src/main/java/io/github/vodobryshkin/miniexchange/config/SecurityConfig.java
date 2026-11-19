@@ -46,11 +46,23 @@ import org.springframework.session.web.http.DefaultCookieSerializer;
 public class SecurityConfig {
     private final ObjectMapper objectMapper;
 
+    /**
+     * Метод для создания кодировщика паролей Argon2.
+     *
+     * @return кодировщик паролей.
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new Argon2PasswordEncoder(16, 32, 1, 19 * 1024, 2);
     }
 
+    /**
+     * Метод для создания менеджера аутентификации.
+     *
+     * @param userDetailsService сервис загрузки пользователей.
+     * @param passwordEncoder кодировщик для проверки паролей.
+     * @return менеджер аутентификации.
+     */
     @Bean
     public AuthenticationManager authenticationManager(UserDetailsService userDetailsService,
                                                        PasswordEncoder passwordEncoder) {
@@ -59,16 +71,32 @@ public class SecurityConfig {
         return new ProviderManager(provider);
     }
 
+    /**
+     * Метод для хранения контекста безопасности в сессии.
+     *
+     * @return репозиторий контекста безопасности.
+     */
     @Bean
     public SecurityContextRepository securityContextRepository() {
         return new HttpSessionSecurityContextRepository();
     }
 
+    /**
+     * Метод для хранения CSRF-токена в сессии.
+     *
+     * @return репозиторий CSRF-токенов.
+     */
     @Bean
     public CsrfTokenRepository csrfTokenRepository() {
         return new HttpSessionCsrfTokenRepository();
     }
 
+    /**
+     * Метод для настройки сессии после успешного входа.
+     *
+     * @param csrfTokenRepository репозиторий CSRF-токенов.
+     * @return стратегия смены идентификатора сессии и сброса CSRF-токена.
+     */
     @Bean
     public SessionAuthenticationStrategy sessionAuthenticationStrategy(CsrfTokenRepository csrfTokenRepository) {
         return new CompositeSessionAuthenticationStrategy(List.of(
@@ -77,6 +105,12 @@ public class SecurityConfig {
         ));
     }
 
+    /**
+     * Метод для настройки cookie сессии.
+     *
+     * @param secureCookie признак передачи cookie только по HTTPS.
+     * @return сериализатор cookie сессии.
+     */
     @Bean
     public DefaultCookieSerializer cookieSerializer(@Value("${app.security.secure-cookie:false}")
                                                         boolean secureCookie) {
@@ -86,6 +120,15 @@ public class SecurityConfig {
         return serializer;
     }
 
+    /**
+     * Метод для настройки правил безопасности HTTP-запросов.
+     *
+     * @param http конфигурация безопасности HTTP.
+     * @param securityContextRepository репозиторий контекста безопасности.
+     * @param csrfTokenRepository репозиторий CSRF-токенов.
+     * @return цепочка фильтров безопасности.
+     * @throws Exception если не удалось настроить цепочку фильтров.
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http,
                                                    SecurityContextRepository securityContextRepository,
