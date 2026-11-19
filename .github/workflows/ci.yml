@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  GRADLE_USER_HOME: /tmp/mini-exchange-gradle
   APP_HOST: 127.0.0.1
   APP_PORT: "8080"
   DB_HOST: 127.0.0.1
@@ -26,7 +27,7 @@ env:
 
 jobs:
   checks:
-    name: JUnit and Checkstyle
+    name: JUnit, Checkstyle and Hurl
     runs-on: ubuntu-24.04
     timeout-minutes: 20
 
@@ -52,56 +53,11 @@ jobs:
         with:
           distribution: temurin
           java-version: "21"
-          cache: gradle
 
-      - name: Run JUnit and Checkstyle
+      - name: Build, test and check style
         run: >
-          bash gradlew test checkstyleMain checkstyleTest
-          --continue --no-daemon --refresh-dependencies --info
-
-      - name: Upload reports
-        if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: junit-checkstyle-reports
-          path: |
-            build/reports/tests/
-            build/test-results/
-            build/reports/checkstyle/
-            build/reports/jacoco/
-          if-no-files-found: ignore
-
-  hurl:
-    name: Hurl integration tests
-    runs-on: ubuntu-24.04
-    timeout-minutes: 20
-
-    services:
-      postgres:
-        image: postgres:18
-        env:
-          POSTGRES_DB: exchange_ci
-          POSTGRES_USER: exchange_ci
-          POSTGRES_PASSWORD: ci_password
-        ports:
-          - 5432:5432
-        options: >-
-          --health-cmd "pg_isready -U exchange_ci -d exchange_ci"
-          --health-interval 5s
-          --health-timeout 5s
-          --health-retries 10
-
-    steps:
-      - uses: actions/checkout@v7
-
-      - uses: actions/setup-java@v6
-        with:
-          distribution: temurin
-          java-version: "21"
-          cache: gradle
-
-      - name: Build application
-        run: bash gradlew bootJar --no-daemon
+          bash gradlew test checkstyleMain checkstyleTest bootJar
+          --continue --no-daemon --stacktrace
 
       - name: Start application
         run: |
@@ -143,10 +99,15 @@ jobs:
             kill "$(cat app.pid)" 2>/dev/null || true
           fi
 
-      - name: Upload application log
+      - name: Upload reports and application log
         if: always()
         uses: actions/upload-artifact@v7
         with:
-          name: hurl-application-log
-          path: app.log
+          name: ci-reports
+          path: |
+            build/reports/tests/
+            build/test-results/
+            build/reports/checkstyle/
+            build/reports/jacoco/
+            app.log
           if-no-files-found: ignore
