@@ -24,20 +24,20 @@ public interface IOrderService {
     OrderOperationResponse createOrder(long userId, CreateOrderRequest request);
 
     /**
-     * Метод для отмены неисполненной заявки.
+     * Метод для отмены неисполненного остатка заявки.
      *
      * @param userId идентификатор пользователя, который хочет отменить заявку.
-     * @param orderId id заявки на отмену.
+     * @param orderId идентификатор заявки.
      */
     void cancelOrder(long userId, long orderId);
 
     /**
-     * Метод для обновления неисполненной заявки.
+     * Метод для обновления неисполненного остатка заявки.
      *
      * @param userId идентификатор пользователя, который хочет обновить заявку.
-     * @param orderId id заявки на обновление.
+     * @param orderId идентификатор заявки.
      * @param request тело запроса на обновление заявки.
-     * @return DTO c информацией об обновленной заявке.
+     * @return DTO с информацией об обновлённой заявке.
      */
     OrderResponse updateOrder(long userId, long orderId, UpdateOrderRequest request);
 
@@ -49,4 +49,18 @@ public interface IOrderService {
      * @return страница реестра заявок.
      */
     PageResponse<OrderResponse> getOrders(long userId, OrderRegistryRequest request);
+
+    /**
+     * Метод для выполнения одного шага исполнения очереди.
+     *
+     * @return true, если обработана заявка или заключена сделка.
+     */
+    boolean matchNext();
+
+    /**
+     * Метод для завершения действия одной просроченной заявки.
+     *
+     * @return true, если заявка переведена в EXPIRED.
+     */
+    boolean expireNext();
 }

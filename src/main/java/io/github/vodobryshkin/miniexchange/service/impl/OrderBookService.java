@@ -11,6 +11,8 @@ import io.github.vodobryshkin.miniexchange.repository.spec.ITradingInstrumentRep
 import io.github.vodobryshkin.miniexchange.service.spec.IOrderBookService;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.time.Clock;
+import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class OrderBookService implements IOrderBookService {
     private final IOrderBookRepository orderBookRepository;
     private final ITradingInstrumentRepository tradingInstrumentRepository;
+    private final Clock clock;
 
     /**
      * Метод для получения биржевого стакана по торговому инструменту.
@@ -45,11 +48,15 @@ public class OrderBookService implements IOrderBookService {
             throw new TradingInstrumentNotFoundException(secCode);
         }
 
-        List<OrderBookLevelResponse> bids =
-                orderBookRepository.findLevels(code, OrderDirection.BUY, depth);
+        Instant asOf = clock.instant();
 
-        List<OrderBookLevelResponse> asks =
-                orderBookRepository.findLevels(code, OrderDirection.SELL, depth);
+        List<OrderBookLevelResponse> bids = orderBookRepository.findLevels(
+                code, OrderDirection.BUY, depth, asOf
+        );
+
+        List<OrderBookLevelResponse> asks = orderBookRepository.findLevels(
+                code, OrderDirection.SELL, depth, asOf
+        );
 
         BigDecimal bestBid = bids.isEmpty() ? null : bids.getFirst().getPrice();
 
@@ -72,6 +79,12 @@ public class OrderBookService implements IOrderBookService {
         );
     }
 
+    /**
+     * Метод для подсчёта суммарного количества в переданных уровнях стакана.
+     *
+     * @param levels ценовые уровни одной стороны.
+     * @return суммарное доступное количество.
+     */
     private BigInteger sumQuantity(List<OrderBookLevelResponse> levels) {
         return levels.stream()
                 .map(OrderBookLevelResponse::getQuantity)

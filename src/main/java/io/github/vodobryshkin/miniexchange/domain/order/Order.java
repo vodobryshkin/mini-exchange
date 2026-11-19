@@ -2,9 +2,12 @@ package io.github.vodobryshkin.miniexchange.domain.order;
 
 import io.github.vodobryshkin.miniexchange.domain.tradinginstrument.SecCode;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import java.math.BigDecimal;
+import java.time.Instant;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -46,9 +49,45 @@ public class Order {
     @Positive(message = "PRICE_MUST_BE_POSITIVE")
     private BigDecimal price;
 
+    @Positive(message = "INITIAL_QUANTITY_MUST_BE_POSITIVE")
+    private final long initialQuantity;
+
     @Positive(message = "QUANTITY_MUST_BE_POSITIVE")
     private long quantity;
 
+    @PositiveOrZero(message = "FILLED_QUANTITY_MUST_BE_NON_NEGATIVE")
+    private long filledQuantity;
+
     @NotNull(message = "STATUS_CANNOT_BE_NULL")
     private OrderStatus status;
+
+    @NotNull(message = "CREATION_TIME_CANNOT_BE_NULL")
+    private final Instant creationTime;
+
+    @NotNull(message = "EXPIRES_AT_CANNOT_BE_NULL")
+    private final Instant expiresAt;
+
+    @Positive(message = "QUEUE_SEQUENCE_MUST_BE_POSITIVE")
+    private long queueSequence;
+
+    private boolean matchingPending;
+
+    /**
+     * Метод для получения неисполненного количества заявки.
+     *
+     * @return неисполненное количество заявки.
+     */
+    public long getRemainingQuantity() {
+        return quantity - filledQuantity;
+    }
+
+    /**
+     * Метод для проверки исполненного количества заявки.
+     *
+     * @return true, если исполненное количество не превышает общее.
+     */
+    @AssertTrue(message = "FILLED_QUANTITY_MUST_NOT_EXCEED_QUANTITY")
+    public boolean isFilledQuantityValid() {
+        return filledQuantity <= quantity;
+    }
 }

@@ -3,6 +3,7 @@ package io.github.vodobryshkin.miniexchange.repository.spec;
 import io.github.vodobryshkin.miniexchange.domain.order.OrderDirection;
 import io.github.vodobryshkin.miniexchange.domain.tradinginstrument.SecCode;
 import io.github.vodobryshkin.miniexchange.dto.orderbook.response.OrderBookLevelResponse;
+import java.time.Instant;
 import java.util.List;
 
 /**
@@ -19,11 +20,10 @@ public interface IOrderBookRepository {
      * @param secCode код торгового инструмента.
      * @param direction направление заявок.
      * @param depth максимальное количество ценовых уровней.
+     * @param asOf момент формирования снимка стакана.
      * @return агрегированные ценовые уровни в порядке от лучшей цены.
      */
     List<OrderBookLevelResponse> findLevels(
-            SecCode secCode,
-            OrderDirection direction,
-            int depth
+            SecCode secCode, OrderDirection direction, int depth, Instant asOf
     );
 }

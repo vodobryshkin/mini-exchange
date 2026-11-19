@@ -1,7 +1,6 @@
 package io.github.vodobryshkin.miniexchange.mapper;
 
 import io.github.vodobryshkin.miniexchange.domain.order.Order;
-import io.github.vodobryshkin.miniexchange.dto.order.request.CreateOrderRequest;
 import io.github.vodobryshkin.miniexchange.dto.order.response.OrderResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,10 +14,12 @@ import org.mapstruct.ReportingPolicy;
  */
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface OrderMapper {
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "status", constant = "NEW")
-    Order toOrder(CreateOrderRequest request);
-
+    /**
+     * Метод для преобразования заявки в DTO ответа.
+     *
+     * @param order заявку, которую необходимо преобразовать.
+     * @return DTO с информацией о заявке.
+     */
     @Mapping(target = "secCode", source = "secCode.value")
     OrderResponse toOrderResponse(Order order);
 }

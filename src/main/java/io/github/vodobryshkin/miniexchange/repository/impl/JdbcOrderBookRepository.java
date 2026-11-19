@@ -4,6 +4,8 @@ import io.github.vodobryshkin.miniexchange.domain.order.OrderDirection;
 import io.github.vodobryshkin.miniexchange.domain.tradinginstrument.SecCode;
 import io.github.vodobryshkin.miniexchange.dto.orderbook.response.OrderBookLevelResponse;
 import io.github.vodobryshkin.miniexchange.repository.spec.IOrderBookRepository;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,18 +36,15 @@ public class JdbcOrderBookRepository implements IOrderBookRepository {
      * @param secCode код торгового инструмента.
      * @param direction направление заявок.
      * @param depth максимальное количество ценовых уровней.
+     * @param asOf момент формирования снимка стакана.
      * @return агрегированные ценовые уровни в порядке от лучшей цены.
      */
     @Override
     public List<OrderBookLevelResponse> findLevels(
             SecCode secCode,
             OrderDirection direction,
-            int depth) {
-
-        String orderIdColumn = switch (direction) {
-            case BUY -> "buy_order_id";
-            case SELL -> "sell_order_id";
-        };
+            int depth,
+            Instant asOf) {
 
         String sortDirection = switch (direction) {
             case BUY -> "DESC";
@@ -53,36 +52,29 @@ public class JdbcOrderBookRepository implements IOrderBookRepository {
         };
 
         String sql = """
-                SELECT o.price,
-                       SUM(o.quantity - COALESCE(f.executed_quantity, 0)) AS quantity,
+                SELECT price,
+                       SUM(quantity - filled_quantity) AS quantity,
                        COUNT(*) AS order_count
-                FROM orders o
-                LEFT JOIN LATERAL (
-                    SELECT SUM(t.quantity) AS executed_quantity
-                    FROM trades t
-                    WHERE t.%s = o.order_id
-                ) f ON TRUE
-                WHERE o.sec_code = ?::SEC_CODE
-                  AND o.direction = ?::ORDER_DIRECTION
-                  AND o.status = 'NEW'::STATUS
-                  AND o.type = 'LIMIT'::ORDER_TYPE
-                  AND o.tif = 'DAY'::ORDER_TIF
-                  AND o.creation_time >= (
-                      date_trunc('day', CURRENT_TIMESTAMP AT TIME ZONE 'Europe/Moscow')
-                      AT TIME ZONE 'Europe/Moscow'
-                  )
-                  AND o.creation_time <= CURRENT_TIMESTAMP
-                  AND o.quantity - COALESCE(f.executed_quantity, 0) > 0
-                GROUP BY o.price
-                ORDER BY o.price %s
+                FROM orders
+                WHERE sec_code = ?::SEC_CODE
+                  AND direction = ?::ORDER_DIRECTION
+                  AND status = 'NEW'
+                  AND type = 'LIMIT'
+                  AND tif = 'DAY'
+                  AND NOT matching_pending
+                  AND quantity > filled_quantity
+                  AND expires_at > ?
+                GROUP BY price
+                ORDER BY price %s
                 LIMIT ?
-                """.formatted(orderIdColumn, sortDirection);
+                """.formatted(sortDirection);
 
         return jdbcTemplate.query(
                 sql,
                 LEVEL_ROW_MAPPER,
                 secCode.getValue(),
                 direction.name(),
+                Timestamp.from(asOf),
                 depth
         );
     }

@@ -2,9 +2,12 @@ package io.github.vodobryshkin.miniexchange.exception;
 
 import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthResponse;
 import io.github.vodobryshkin.miniexchange.dto.common.request.RegistryRequest;
+import io.github.vodobryshkin.miniexchange.dto.order.response.OrderOperationResponse;
 import io.github.vodobryshkin.miniexchange.dto.orderbook.request.OrderBookRequest;
+import io.github.vodobryshkin.miniexchange.exception.order.OrderNotActiveException;
 import io.github.vodobryshkin.miniexchange.exception.order.OrderNotCancelledException;
 import io.github.vodobryshkin.miniexchange.exception.order.OrderNotFoundException;
+import io.github.vodobryshkin.miniexchange.exception.order.OrderRejectedException;
 import io.github.vodobryshkin.miniexchange.exception.tradingaccount.TradingAccountNotFoundException;
 import io.github.vodobryshkin.miniexchange.exception.tradinginstrument.TradingInstrumentNotFoundException;
 import io.github.vodobryshkin.miniexchange.exception.user.UserNotFoundException;
@@ -186,5 +189,32 @@ public class AppExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("errors", errors));
+    }
+
+    /**
+     * Метод для обработки нарушения правил размещения заявки.
+     *
+     * @param ex исключение с кодом нарушения.
+     * @return HTTP-ответ с описанием ошибки и статусом CONFLICT.
+     */
+    @ExceptionHandler(OrderRejectedException.class)
+    public ResponseEntity<OrderOperationResponse> handleOrderRejectedException(
+            OrderRejectedException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new OrderOperationResponse(ex.getMessage()));
+    }
+
+    /**
+     * Метод для обработки попытки изменения неактивной заявки.
+     *
+     * @return HTTP-ответ с описанием ошибки и статусом CONFLICT.
+     */
+    @ExceptionHandler(OrderNotActiveException.class)
+    public ResponseEntity<OrderOperationResponse> handleOrderNotActiveException() {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(new OrderOperationResponse("ORDER_NOT_ACTIVE"));
     }
 }
