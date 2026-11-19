@@ -22,9 +22,9 @@ services:
   hurl:
     profiles: ["tests"]
     build:
-      context: ./mini-exchange-hurl
+      context: ./hurl
     env_file:
-      - example.env
+      - .env
     environment:
       APP_HOST: host.docker.internal
       DB_HOST: postgres

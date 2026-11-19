@@ -1,4 +1,11 @@
 \set ON_ERROR_STOP on
+\ir variables.sql
+SELECT MIN(a.trading_account_id) AS buyer_account
+FROM trading_accounts a JOIN users u USING (user_id)
+WHERE u.username = :'buyer_username' \gset
+SELECT MIN(a.trading_account_id) AS seller_account
+FROM trading_accounts a JOIN users u USING (user_id)
+WHERE u.username = :'seller_username' \gset
 CREATE FUNCTION pg_temp.check_test(ok BOOLEAN, label TEXT) RETURNS VOID
 LANGUAGE plpgsql AS $$
 BEGIN

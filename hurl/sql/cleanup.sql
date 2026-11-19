@@ -1,4 +1,5 @@
 \set ON_ERROR_STOP on
+\ir variables.sql
 BEGIN;
 SELECT id AS market_lock FROM exchange_state WHERE id = 1 FOR UPDATE \gset
 DELETE FROM trades
