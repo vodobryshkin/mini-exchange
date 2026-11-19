@@ -5,6 +5,7 @@ plugins {
     jacoco
     id("org.springframework.boot") version "3.5.16"
     id("io.spring.dependency-management") version "1.1.7"
+    id("com.github.shalousun.smart-doc") version "4.0.0"
 }
 
 group = "io.github.vodobryshkin"
@@ -82,4 +83,12 @@ tasks.jacocoTestReport {
             layout.buildDirectory.dir("reports/jacoco/test/html")
         )
     }
+}
+
+smartdoc {
+    configFile = file("src/main/resources/smart-doc.json")
+}
+
+tasks.named("build") {
+    dependsOn("smartDocOpenApi")
 }

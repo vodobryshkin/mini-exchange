@@ -1,0 +1,6 @@
+{
+  "projectName": "mini-exchange",
+  "serverUrl": "http://localhost:8080",
+  "isStrict": false,
+  "outPath": "./build/docs/openapi"
+}

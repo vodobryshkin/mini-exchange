@@ -1,10 +1,10 @@
 package io.github.vodobryshkin.miniexchange.controller;
 
-import io.github.vodobryshkin.miniexchange.dto.user.request.CreateUserRequest;
 import io.github.vodobryshkin.miniexchange.dto.auth.request.LoginRequest;
 import io.github.vodobryshkin.miniexchange.dto.auth.response.AuthResponse;
-import io.github.vodobryshkin.miniexchange.dto.user.response.AuthenticatedUserResponse;
 import io.github.vodobryshkin.miniexchange.dto.auth.response.CsrfResponse;
+import io.github.vodobryshkin.miniexchange.dto.user.request.CreateUserRequest;
+import io.github.vodobryshkin.miniexchange.dto.user.response.AuthenticatedUserResponse;
 import io.github.vodobryshkin.miniexchange.security.ExchangeUserDetails;
 import io.github.vodobryshkin.miniexchange.service.spec.IUserService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -47,6 +47,12 @@ public class AuthController {
     private final SecurityContextRepository securityContextRepository;
     private final SessionAuthenticationStrategy sessionAuthenticationStrategy;
 
+    /**
+     * Метод для получения CSRF-токена.
+     *
+     * @param token текущий CSRF-токен.
+     * @return HTTP-ответ с токеном и названиями заголовка и параметра для его передачи.
+     */
     @GetMapping("/csrf")
     public ResponseEntity<CsrfResponse> csrf(CsrfToken token) {
         return ResponseEntity
@@ -54,6 +60,12 @@ public class AuthController {
                 .body(new CsrfResponse(token.getHeaderName(), token.getParameterName(), token.getToken()));
     }
 
+    /**
+     * Метод для регистрации нового пользователя.
+     *
+     * @param request тело запроса на регистрацию пользователя.
+     * @return HTTP-ответ с результатом регистрации пользователя.
+     */
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody @Valid CreateUserRequest request) {
         return ResponseEntity
@@ -61,12 +73,20 @@ public class AuthController {
                 .body(userService.createUser(request));
     }
 
+    /**
+     * Метод для аутентификации пользователя и сохранения контекста безопасности.
+     *
+     * @param loginRequest тело запроса на аутентификацию пользователя.
+     * @param request HTTP-запрос на аутентификацию.
+     * @param response HTTP-ответ для сохранения контекста безопасности.
+     * @return результат успешной аутентификации пользователя.
+     */
     @PostMapping("/login")
     public AuthResponse login(
             @RequestBody @Valid LoginRequest loginRequest,
             HttpServletRequest request,
-            HttpServletResponse response
-    ) {
+            HttpServletResponse response) {
+
         Authentication authentication = authenticationManager.authenticate(
                 UsernamePasswordAuthenticationToken.unauthenticated(
                         loginRequest.getUsername(), loginRequest.getPassword()));
@@ -82,6 +102,12 @@ public class AuthController {
         return AuthResponse.OK;
     }
 
+    /**
+     * Метод для получения данных текущего авторизованного пользователя.
+     *
+     * @param user авторизованный пользователь.
+     * @return идентификатор и имя текущего пользователя.
+     */
     @GetMapping("/me")
     public AuthenticatedUserResponse me(@AuthenticationPrincipal ExchangeUserDetails user) {
         return new AuthenticatedUserResponse(user.getId(), user.getUsername());
