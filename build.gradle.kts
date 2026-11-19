@@ -23,6 +23,7 @@ repositories {
 }
 
 dependencies {
+    implementation("me.paulschwarz:springboot3-dotenv:5.1.0")
     implementation("org.springframework.boot:spring-boot-starter-jdbc")
     implementation("org.liquibase:liquibase-core")
     implementation("org.springframework.boot:spring-boot-starter-security")
