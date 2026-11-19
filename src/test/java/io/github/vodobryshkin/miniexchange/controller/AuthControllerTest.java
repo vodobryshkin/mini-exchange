@@ -90,12 +90,12 @@ class AuthControllerTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("""
-                                {
-                                    "username": "abc",
-                                    "password": "12345678"
-                                }
-                                """))
-                .andExpect(status().isBadRequest());
+                            {
+                                "username": "abc",
+                                "password": "0123456789qwertyu"
+                            }
+                            """))
+                .andExpect(status().isUnprocessableEntity());
 
         verifyNoInteractions(userService);
     }
