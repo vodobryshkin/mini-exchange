@@ -1,7 +1,6 @@
 package io.github.vodobryshkin.miniexchange.dto.common.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.AssertTrue;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -26,11 +25,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistryRequest {
-    @JsonProperty("trading_account_id")
     @Positive(message = "TRADING_ACCOUNT_ID_MUST_BE_POSITIVE")
     private Long tradingAccountId;
 
-    @JsonProperty("sec_code")
     @Pattern(
             regexp = "[A-Z0-9._/-]{1,32}",
             message = "SEC_CODE_INVALID"
@@ -43,11 +40,21 @@ public class RegistryRequest {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private OffsetDateTime to;
 
+    /**
+     * Номер страницы.
+     *
+     * @mock 0
+     */
     @Builder.Default
     @NotNull(message = "PAGE_CANNOT_BE_NULL")
     @Min(value = 0, message = "PAGE_MUST_BE_NON_NEGATIVE")
     private Integer page = 0;
 
+    /**
+     * Размер страницы.
+     *
+     * @mock 50
+     */
     @Builder.Default
     @NotNull(message = "SIZE_CANNOT_BE_NULL")
     @Min(value = 1, message = "SIZE_MUST_BE_POSITIVE")

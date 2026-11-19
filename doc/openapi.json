@@ -39,12 +39,12 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/6ff597fe08b2921be1a5dfb491bddeff"
+                                "$ref": "#/components/schemas/821e4a947fde4385e88701030c442714"
                             },
                             "examples": {
                                 "json": {
                                     "summary": "test data",
-                                    "value": "{\n  \"sec_code\": {\n    \"value\": \"\"\n  },\n  \"trading_account_id\": 0,\n  \"direction\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"time_in_force\": \"DAY\",\n  \"price\": 0,\n  \"quantity\": 0\n}"
+                                    "value": "{\n  \"sec_code\": {\n    \"value\": \"SBER\"\n  },\n  \"trading_account_id\": 1,\n  \"direction\": \"BUY\",\n  \"type\": \"LIMIT\",\n  \"time_in_force\": \"DAY\",\n  \"price\": \"100.00\",\n  \"quantity\": 10\n}"
                                 }
                             }
                         }
@@ -68,7 +68,7 @@
                         }
                     }
                 },
-                "operationId": "createOrder_4",
+                "operationId": "createOrder",
                 "parameters": [
                     
                 ]
@@ -97,7 +97,7 @@
                         }
                     }
                 },
-                "operationId": "getOrders_4",
+                "operationId": "getOrders",
                 "parameters": [
                     {
                         "schema": {
@@ -108,7 +108,7 @@
                         "description": "No comments found.\nValidation[Positive(message=TRADING_ACCOUNT_ID_MUST_BE_POSITIVE)]",
                         "required": false,
                         "example": 0,
-                        "name": "trading_account_id"
+                        "name": "tradingAccountId"
                     },
                     {
                         "schema": {
@@ -118,7 +118,7 @@
                         "in": "query",
                         "description": "No comments found.\nValidation[Pattern(regexp=[A-Z0-9._/-]{1,32}, message=SEC_CODE_INVALID)]",
                         "required": false,
-                        "name": "sec_code"
+                        "name": "secCode"
                     },
                     {
                         "schema": {
@@ -145,23 +145,25 @@
                     {
                         "schema": {
                             "format": "int32",
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 0
                         },
                         "in": "query",
-                        "description": "No comments found.\nValidation[Min(value=0, message=PAGE_MUST_BE_NON_NEGATIVE)]",
-                        "required": true,
+                        "description": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b.\nValidation[Min(value=0, message=PAGE_MUST_BE_NON_NEGATIVE)]",
+                        "required": false,
                         "example": 0,
                         "name": "page"
                     },
                     {
                         "schema": {
                             "format": "int32",
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 50
                         },
                         "in": "query",
-                        "description": "No comments found.\nValidation[Min(value=1, message=SIZE_MUST_BE_POSITIVE); Max(value=100, message=SIZE_MUST_NOT_EXCEED_100)]",
-                        "required": true,
-                        "example": 0,
+                        "description": "\u0420\u0430\u0437\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b.\nValidation[Min(value=1, message=SIZE_MUST_BE_POSITIVE); Max(value=100, message=SIZE_MUST_NOT_EXCEED_100)]",
+                        "required": false,
+                        "example": 50,
                         "name": "size"
                     },
                     {
@@ -211,7 +213,7 @@
                         "description": "No Content"
                     }
                 },
-                "operationId": "cancelOrder_4",
+                "operationId": "cancelOrder",
                 "parameters": [
                     {
                         "schema": {
@@ -236,12 +238,12 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/89e1b69a8b6f2fc4824be444db881734"
+                                "$ref": "#/components/schemas/92048a9f5a7129ffb9c0ec186b9f8d50"
                             },
                             "examples": {
                                 "json": {
                                     "summary": "test data",
-                                    "value": "{\n  \"time_in_force\": \"DAY\",\n  \"price\": 0,\n  \"quantity\": 0\n}"
+                                    "value": "{\n  \"time_in_force\": \"DAY\",\n  \"price\": \"101.00\",\n  \"quantity\": 12\n}"
                                 }
                             }
                         }
@@ -265,7 +267,7 @@
                         }
                     }
                 },
-                "operationId": "updateOrder_4",
+                "operationId": "updateOrder",
                 "parameters": [
                     {
                         "schema": {
@@ -306,7 +308,7 @@
                         }
                     }
                 },
-                "operationId": "getTrades_6",
+                "operationId": "getTrades",
                 "parameters": [
                     {
                         "schema": {
@@ -354,22 +356,24 @@
                     {
                         "schema": {
                             "format": "int32",
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 0
                         },
                         "in": "query",
                         "description": "\u043d\u043e\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b.",
-                        "required": true,
+                        "required": false,
                         "example": 0,
                         "name": "page"
                     },
                     {
                         "schema": {
                             "format": "int32",
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 50
                         },
                         "in": "query",
                         "description": "\u0440\u0430\u0437\u043c\u0435\u0440 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u044b.",
-                        "required": true,
+                        "required": false,
                         "example": 50,
                         "name": "size"
                     }
@@ -401,7 +405,7 @@
                         }
                     }
                 },
-                "operationId": "csrf_4",
+                "operationId": "csrf",
                 "parameters": [
                     
                 ]
@@ -418,12 +422,12 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/e0f2829e0e3f7b0354162afbc0bf7210"
+                                "$ref": "#/components/schemas/9699248f444fcaaac8457507f97e067c"
                             },
                             "examples": {
                                 "json": {
                                     "summary": "test data",
-                                    "value": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}"
+                                    "value": "{\n  \"username\": \"buyer_demo\",\n  \"password\": \"Demo_Password_2026\"\n}"
                                 }
                             }
                         }
@@ -447,7 +451,7 @@
                         }
                     }
                 },
-                "operationId": "register_4",
+                "operationId": "register",
                 "parameters": [
                     
                 ]
@@ -464,12 +468,12 @@
                     "content": {
                         "application/json": {
                             "schema": {
-                                "$ref": "#/components/schemas/a44bec4f93e5fad539228e49c3026d93"
+                                "$ref": "#/components/schemas/7236d2e510ac8d702f27e798d21ffe17"
                             },
                             "examples": {
                                 "json": {
                                     "summary": "test data",
-                                    "value": "{\n  \"username\": \"\",\n  \"password\": \"\"\n}"
+                                    "value": "{\n  \"username\": \"buyer_demo\",\n  \"password\": \"Demo_Password_2026\"\n}"
                                 }
                             }
                         }
@@ -493,7 +497,7 @@
                         }
                     }
                 },
-                "operationId": "login_4",
+                "operationId": "login",
                 "parameters": [
                     
                 ]
@@ -524,7 +528,7 @@
                         }
                     }
                 },
-                "operationId": "me_4",
+                "operationId": "me",
                 "parameters": [
                     
                 ]
@@ -555,7 +559,7 @@
                         }
                     }
                 },
-                "operationId": "getOrderBook_6",
+                "operationId": "getOrderBook",
                 "parameters": [
                     {
                         "schema": {
@@ -570,12 +574,13 @@
                     {
                         "schema": {
                             "format": "int32",
-                            "type": "integer"
+                            "type": "integer",
+                            "default": 20
                         },
                         "in": "query",
-                        "description": "No comments found.\nValidation[Min(value=1, message=DEPTH_MUST_BE_BETWEEN_1_AND_100); Max(value=100, message=DEPTH_MUST_BE_BETWEEN_1_AND_100)]",
+                        "description": "\u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u043e\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0446\u0435\u043d\u043e\u0432\u044b\u0445 \u0443\u0440\u043e\u0432\u043d\u0435\u0439 \u0441 \u043a\u0430\u0436\u0434\u043e\u0439 \u0441\u0442\u043e\u0440\u043e\u043d\u044b.\nValidation[Min(value=1, message=DEPTH_MUST_BE_BETWEEN_1_AND_100); Max(value=100, message=DEPTH_MUST_BE_BETWEEN_1_AND_100)]",
                         "required": false,
-                        "example": 0,
+                        "example": 20,
                         "name": "depth"
                     }
                 ]
@@ -886,36 +891,6 @@
                     }
                 }
             },
-            "89e1b69a8b6f2fc4824be444db881734": {
-                "type": "object",
-                "properties": {
-                    "time_in_force": {
-                        "format": "enum",
-                        "description": "No comments found.<br/>(See: \u0412\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435 \u0440\u0430\u043c\u043a\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
-                        "type": "string",
-                        "enum": [
-                            "DAY"
-                        ],
-                        "example": "DAY"
-                    },
-                    "price": {
-                        "format": "number",
-                        "description": "No comments found.\nValidation[Positive(message=PRICE_MUST_BE_POSITIVE)]",
-                        "type": "number",
-                        "example": "0"
-                    },
-                    "quantity": {
-                        "format": "int64",
-                        "description": "No comments found.\nValidation[Positive(message=QUANTITY_MUST_BE_POSITIVE)]",
-                        "type": "number",
-                        "example": 0
-                    }
-                },
-                "required": [
-                    "time_in_force",
-                    "price"
-                ]
-            },
             "e568e8da21e62f331d20627910d184b4": {
                 "type": "object",
                 "properties": {
@@ -1068,6 +1043,27 @@
                 "format": "string",
                 "type": "string"
             },
+            "7236d2e510ac8d702f27e798d21ffe17": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "format": "string",
+                        "description": "\u0418\u043c\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.\nValidation[Size(max=32, min=0, message=USERNAME_MUST_NOT_EXCEED_32_CHARACTERS)]",
+                        "type": "string",
+                        "example": "buyer_demo"
+                    },
+                    "password": {
+                        "format": "string",
+                        "description": "\u041f\u0430\u0440\u043e\u043b\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.\nValidation[Size(max=128, min=0, message=PASSWORD_MUST_NOT_EXCEED_128_CHARACTERS)]",
+                        "type": "string",
+                        "example": "Demo_Password_2026"
+                    }
+                },
+                "required": [
+                    "username",
+                    "password"
+                ]
+            },
             "0e10ecdca831a7f9f833258c1de4ed2c": {
                 "type": "object",
                 "properties": {
@@ -1097,19 +1093,6 @@
                         "example": 0
                     }
                 }
-            },
-            "d5aceacbfbd8408533a7c6056a178a6e": {
-                "type": "object",
-                "properties": {
-                    "value": {
-                        "format": "string",
-                        "description": "No comments found.\nValidation[Size(max=32, min=1, message=SEC_CODE_MUST_BE_BETWEEN_1_AND_32_CHARACTERS); Pattern(regexp=[A-Z0-9._/-]+, message=SEC_CODE_CAN_ONLY_CONTAIN_UPPERCASE_LETTERS_NUMBERS_AND_SYMBOLS)]",
-                        "type": "string"
-                    }
-                },
-                "required": [
-                    "value"
-                ]
             },
             "61004ed098af79acbf23e809e140f33e": {
                 "type": "object",
@@ -1157,18 +1140,20 @@
                     }
                 }
             },
-            "a44bec4f93e5fad539228e49c3026d93": {
+            "9699248f444fcaaac8457507f97e067c": {
                 "type": "object",
                 "properties": {
                     "username": {
                         "format": "string",
-                        "description": "No comments found.\nValidation[Size(max=32, min=0, message=USERNAME_MUST_NOT_EXCEED_32_CHARACTERS)]",
-                        "type": "string"
+                        "description": "\u0418\u043c\u044f \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.\nValidation[Size(max=32, min=6, message=USERNAME_MUST_BE_BETWEEN_6_AND_32_CHARACTERS); Pattern(regexp=[A-Za-z0-9_]+, message=USERNAME_CAN_ONLY_CONTAIN_LATIN_LETTERS_DIGITS_AND_UNDERSCORE)]",
+                        "type": "string",
+                        "example": "buyer_demo"
                     },
                     "password": {
                         "format": "string",
-                        "description": "No comments found.\nValidation[Size(max=128, min=0, message=PASSWORD_MUST_NOT_EXCEED_128_CHARACTERS)]",
-                        "type": "string"
+                        "description": "\u041f\u0430\u0440\u043e\u043b\u044c \u043f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u044f.\nValidation[Size(max=128, min=15, message=PASSWORD_MUST_BE_BETWEEN_15_AND_128_CHARACTERS)]",
+                        "type": "string",
+                        "example": "Demo_Password_2026"
                     }
                 },
                 "required": [
@@ -1176,37 +1161,82 @@
                     "password"
                 ]
             },
-            "e0f2829e0e3f7b0354162afbc0bf7210": {
+            "482219f1f0ec16b6ae2c5e0b7d2a8412": {
                 "type": "object",
                 "properties": {
-                    "username": {
+                    "value": {
                         "format": "string",
-                        "description": "No comments found.\nValidation[Size(max=32, min=6, message=USERNAME_MUST_BE_BETWEEN_6_AND_32_CHARACTERS); Pattern(regexp=[A-Za-z0-9_]+, message=USERNAME_CAN_ONLY_CONTAIN_LATIN_LETTERS_DIGITS_AND_UNDERSCORE)]",
-                        "type": "string"
-                    },
-                    "password": {
-                        "format": "string",
-                        "description": "No comments found.\nValidation[Size(max=128, min=15, message=PASSWORD_MUST_BE_BETWEEN_15_AND_128_CHARACTERS)]",
-                        "type": "string"
+                        "description": "\u041a\u043e\u0434 \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0433\u043e \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0430.\nValidation[Size(max=32, min=1, message=SEC_CODE_MUST_BE_BETWEEN_1_AND_32_CHARACTERS); Pattern(regexp=[A-Z0-9._/-]+, message=SEC_CODE_CAN_ONLY_CONTAIN_UPPERCASE_LETTERS_NUMBERS_AND_SYMBOLS)]",
+                        "type": "string",
+                        "example": "SBER"
                     }
                 },
                 "required": [
-                    "username",
-                    "password"
+                    "value"
                 ]
             },
-            "6ff597fe08b2921be1a5dfb491bddeff": {
+            "92048a9f5a7129ffb9c0ec186b9f8d50": {
+                "type": "object",
+                "properties": {
+                    "time_in_force": {
+                        "format": "enum",
+                        "description": "No comments found.<br/>(See: \u0412\u0440\u0435\u043c\u0435\u043d\u043d\u044b\u0435 \u0440\u0430\u043c\u043a\u0438 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u044f \u0437\u0430\u044f\u0432\u043a\u0438 \u043d\u0430 \u0431\u0438\u0440\u0436\u0435.)",
+                        "type": "string",
+                        "enum": [
+                            "DAY"
+                        ],
+                        "example": "DAY"
+                    },
+                    "price": {
+                        "format": "number",
+                        "description": "\u041d\u043e\u0432\u0430\u044f \u0446\u0435\u043d\u0430 \u0437\u0430\u044f\u0432\u043a\u0438.\nValidation[Positive(message=PRICE_MUST_BE_POSITIVE)]",
+                        "type": "number",
+                        "example": "101.00"
+                    },
+                    "quantity": {
+                        "format": "int64",
+                        "description": "\u041d\u043e\u0432\u043e\u0435 \u043e\u0431\u0449\u0435\u0435 \u043a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0430 \u0432 \u0448\u0442\u0443\u043a\u0430\u0445.\nValidation[Positive(message=QUANTITY_MUST_BE_POSITIVE)]",
+                        "type": "number",
+                        "example": 12
+                    }
+                },
+                "required": [
+                    "time_in_force",
+                    "price"
+                ]
+            },
+            "e03a739ece4e4025ee8f1f4561426762": {
+                "type": "object",
+                "properties": {
+                    "headerName": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    },
+                    "parameterName": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    },
+                    "token": {
+                        "format": "string",
+                        "description": "No comments found.",
+                        "type": "string"
+                    }
+                }
+            },
+            "821e4a947fde4385e88701030c442714": {
                 "type": "object",
                 "properties": {
                     "sec_code": {
                         "description": "No comments found.(object)",
-                        "$ref": "#/components/schemas/d5aceacbfbd8408533a7c6056a178a6e"
+                        "$ref": "#/components/schemas/482219f1f0ec16b6ae2c5e0b7d2a8412"
                     },
                     "trading_account_id": {
                         "format": "int64",
-                        "description": "No comments found.\nValidation[Positive(message=TRADING_ACCOUNT_ID_MUST_BE_POSITIVE)]",
+                        "description": "\u0418\u0434\u0435\u043d\u0442\u0438\u0444\u0438\u043a\u0430\u0442\u043e\u0440 \u0442\u043e\u0440\u0433\u043e\u0432\u043e\u0433\u043e \u0441\u0447\u0451\u0442\u0430.\nValidation[Positive(message=TRADING_ACCOUNT_ID_MUST_BE_POSITIVE)]",
                         "type": "number",
-                        "example": 0
+                        "example": 1
                     },
                     "direction": {
                         "format": "enum",
@@ -1238,15 +1268,15 @@
                     },
                     "price": {
                         "format": "number",
-                        "description": "No comments found.\nValidation[Positive(message=PRICE_MUST_BE_POSITIVE)]",
+                        "description": "\u0426\u0435\u043d\u0430 \u0437\u0430\u044f\u0432\u043a\u0438.\nValidation[Positive(message=PRICE_MUST_BE_POSITIVE)]",
                         "type": "number",
-                        "example": "0"
+                        "example": "100.00"
                     },
                     "quantity": {
                         "format": "int64",
-                        "description": "No comments found.\nValidation[Positive(message=QUANTITY_MUST_BE_POSITIVE)]",
+                        "description": "\u041a\u043e\u043b\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0438\u043d\u0441\u0442\u0440\u0443\u043c\u0435\u043d\u0442\u0430 \u0432 \u0448\u0442\u0443\u043a\u0430\u0445.\nValidation[Positive(message=QUANTITY_MUST_BE_POSITIVE)]",
                         "type": "number",
-                        "example": 0
+                        "example": 10
                     }
                 },
                 "required": [
@@ -1256,26 +1286,6 @@
                     "time_in_force",
                     "price"
                 ]
-            },
-            "e03a739ece4e4025ee8f1f4561426762": {
-                "type": "object",
-                "properties": {
-                    "headerName": {
-                        "format": "string",
-                        "description": "No comments found.",
-                        "type": "string"
-                    },
-                    "parameterName": {
-                        "format": "string",
-                        "description": "No comments found.",
-                        "type": "string"
-                    },
-                    "token": {
-                        "format": "string",
-                        "description": "No comments found.",
-                        "type": "string"
-                    }
-                }
             }
         }
     }

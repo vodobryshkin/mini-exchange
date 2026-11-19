@@ -14,6 +14,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class OrderBookRequest {
+    /**
+     * Максимальное количество ценовых уровней с каждой стороны.
+     *
+     * @mock 20
+     */
     @Min(value = 1, message = "DEPTH_MUST_BE_BETWEEN_1_AND_100")
     @Max(value = 100, message = "DEPTH_MUST_BE_BETWEEN_1_AND_100")
     private int depth = 20;

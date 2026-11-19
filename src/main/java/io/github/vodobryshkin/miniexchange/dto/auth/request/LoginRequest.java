@@ -13,10 +13,20 @@ import lombok.ToString;
  */
 @Data
 public class LoginRequest {
+    /**
+     * Имя пользователя.
+     *
+     * @mock buyer_demo
+     */
     @NotBlank(message = "USERNAME_CANNOT_BE_BLANK")
     @Size(max = 32, message = "USERNAME_MUST_NOT_EXCEED_32_CHARACTERS")
     private String username;
 
+    /**
+     * Пароль пользователя.
+     *
+     * @mock Demo_Password_2026
+     */
     @NotBlank(message = "PASSWORD_CANNOT_BE_BLANK")
     @Size(max = 128, message = "PASSWORD_MUST_NOT_EXCEED_128_CHARACTERS")
     @ToString.Exclude

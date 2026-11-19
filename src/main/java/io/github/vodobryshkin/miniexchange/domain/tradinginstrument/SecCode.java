@@ -15,6 +15,11 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public class SecCode {
+    /**
+     * Код торгового инструмента.
+     *
+     * @mock SBER
+     */
     @NotNull(message = "SEC_CODE_CANNOT_BE_NULL")
     @Size(min = 1, max = 32, message = "SEC_CODE_MUST_BE_BETWEEN_1_AND_32_CHARACTERS")
     @Pattern(regexp = "[A-Z0-9._/-]+", message = "SEC_CODE_CAN_ONLY_CONTAIN_UPPERCASE_LETTERS_NUMBERS_AND_SYMBOLS")

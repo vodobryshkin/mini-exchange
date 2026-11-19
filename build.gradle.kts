@@ -106,22 +106,17 @@ tasks.named("smartDocOpenApi") {
         val spec = obj(JsonSlurper().parse(generated))
         val paths = obj(spec["paths"])
 
-        fun operation(path: String, method: String) =
-            obj(obj(paths[path])[method])
+        fun operation(path: String, method: String) = obj(obj(paths[path])[method])
 
         for (path in listOf("/orders", "/auth/register")) {
             val responses = obj(operation(path, "post")["responses"])
-            val created = obj(
-                responses.remove("200") ?: responses.getValue("201")
-            )
-
+            val created = obj(responses.remove("200") ?: responses.getValue("201"))
             created["description"] = "Created"
             responses["201"] = created
         }
 
         val cancel = operation("/orders/{id}", "patch")
         val responses = obj(cancel["responses"])
-
         responses.remove("200")
         responses["204"] = mapOf("description" to "No Content")
         cancel.remove("requestBody")
@@ -134,9 +129,26 @@ tasks.named("smartDocOpenApi") {
             )
         )
 
+        for (path in listOf("/orders", "/trades")) {
+            val parameters = operation(path, "get")["parameters"] as List<*>
+            for (parameter in parameters) {
+                val param = obj(parameter)
+                if (param["name"] == "page" || param["name"] == "size") {
+                    val defaultValue = if (param["name"] == "page") 0 else 50
+                    param["required"] = false
+                    param["example"] = defaultValue
+                    obj(param["schema"])["default"] = defaultValue
+                }
+            }
+        }
+
+        val parameters = operation("/instruments/{secCode}/orderbook", "get")["parameters"] as List<*>
+        val depth = parameters.map { obj(it) }.first { it["name"] == "depth" }
+        depth["example"] = 20
+        obj(depth["schema"])["default"] = 20
+
         val json = JsonOutput.prettyPrint(JsonOutput.toJson(spec))
         generated.writeText(json)
-
         val published = file("doc/openapi.json")
         published.parentFile.mkdirs()
         published.writeText(json)

@@ -19,10 +19,20 @@ public class UpdateOrderRequest {
     @NotNull(message = "TIME_IN_FORCE_CANNOT_BE_NULL")
     private TimeInForce timeInForce;
 
+    /**
+     * Новая цена заявки.
+     *
+     * @mock 101.00
+     */
     @NotNull(message = "PRICE_CANNOT_BE_NULL")
     @Positive(message = "PRICE_MUST_BE_POSITIVE")
     private BigDecimal price;
 
+    /**
+     * Новое общее количество инструмента в штуках.
+     *
+     * @mock 12
+     */
     @Positive(message = "QUANTITY_MUST_BE_POSITIVE")
     private long quantity;
 }
